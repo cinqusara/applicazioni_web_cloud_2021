@@ -22,8 +22,6 @@ function clearInput(inputElement) {
     inputElement.classList.remove("formInput--success");
 }
 
-function clearMessage(inputElement) {}
-
 function setFormMessage(formElement, type, message) {
     //form element: può essere o loginForm o createAccountForm
     const messageElement = formElement.querySelector(".formMsg");
@@ -33,9 +31,12 @@ function setFormMessage(formElement, type, message) {
     if (type === "error") {
         messageElement.classList.remove("formMsg--success", "formMsg--error");
         messageElement.classList.add('formMsg--error');
-    } else {
+    } else if (type === "success") {
         messageElement.classList.remove("formMsg--error", "formMsg--success");
         messageElement.classList.add('formMsg--success');
+    } else {
+        messageElement.classList.remove("formMsg--error", "formMsg--success");
+        messageElement.classList.add('formMsg--submit');
     }
 }
 
@@ -61,12 +62,13 @@ document.addEventListener("DOMContentLoaded", () => {
     loginForm.addEventListener("submit", event => {
         event.preventDefault();
         checkInputs();
+        setFormMessage(createAccountForm, "submit", "submit");
     })
 
     createAccountForm.addEventListener("submit", event => {
         event.preventDefault();
         checkInputs();
-        clearMessage();
+        setFormMessage(loginForm, "submit", "submit");
     })
 
 
@@ -153,7 +155,8 @@ function checkInputs() {
 
     if (signUpEmail_value === "" || signUpLastName_value === "" || signUpName_value === "" || signUpPassword_value === "" || signUpConfirmPassword_value === "") {
         setFormMessage(createAccountForm, "error", "Check all the fields");
-    } else if (!isEmailLogin(signUpEmail_value)) {
+    } else if (!isEmailSignUp(signUpEmail_value)) {
+        console.log("siamo nella email");
         setFormMessage(createAccountForm, "error", 'Not a valid email');
     } else if (signUpConfirmPassword_value != signUpPassword_value) {
         setFormMessage(createAccountForm, "error", 'Passwords does not match');
@@ -161,32 +164,12 @@ function checkInputs() {
         setFormMessage(createAccountForm, "success", 'Correct');
     }
 
-
-
-
-    // if (emailValue === '') {
-    //     setErrorFor(email, 'Email cannot be blank');
-    // } else if (!isEmail(emailValue)) {
-    //     setErrorFor(email, 'Not a valid email');
-    // } else {
-    //     setSuccessFor(email);
-    // }
-
-    // if (passwordValue === '') {
-    //     setErrorFor(password, 'Password cannot be blank');
-    // } else {
-    //     setSuccessFor(password);
-    // }
-
-    // if (password2Value === '') {
-    //     setErrorFor(password2, 'Password2 cannot be blank');
-    // } else if (passwordValue !== password2Value) {
-    //     setErrorFor(password2, 'Passwords does not match');
-    // } else {
-    //     setSuccessFor(password2);
-    // }
 }
 
 function isEmailLogin(loginEmail) {
     return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(loginEmail);
+}
+
+function isEmailSignUp(signUpEmail) {
+    return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(signUpEmail);
 }
