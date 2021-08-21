@@ -48,6 +48,38 @@ body {
     margin: 0px 0 0 -225px;
 }
 
+#createAccount_seller {
+    max-width: 450px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 450px;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+    height: 650px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0px 0 0 -225px;
+}
+
+#createAccount_customer {
+    max-width: 450px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 450px;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+    height: 650px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0px 0 0 -225px;
+}
+
 .container {
     position: relative;
 }
@@ -74,6 +106,10 @@ body {
 
 .formMsg--error {
     color: var(--color-error);
+}
+
+.formMsg--submit {
+    font-size: 0px;
 }
 
 .formInput--error {

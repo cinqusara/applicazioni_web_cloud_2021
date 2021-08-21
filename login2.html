@@ -74,35 +74,49 @@
                 </div>
             </form>
 
-            <!--SIGN UP-->
-            <form class="form form--hidden" action="" method="post" name="createAccount" id="createAccount">
+            <!--CHOOSE USER-->
+            <form class="form form--hidden" action="" method="post" name="chooseUser" id="chooseUser">
                 <h1>
-                    <center>Create Account</center>
+                    <center>Choose the User</center>
+                </h1>
+                <br>
+
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button class="btn btn-primary" type="button" id="linkCreateAccount_customer">Create an account as a customer</button>
+                    <button class="btn btn-primary" type="button" id="linkCreateAccount_seller">Create an account as a seller</button>
+                </div>
+
+            </form>
+
+            <!--SIGN UP seller-->
+            <form class="form form--hidden" action="" method="post" name="createAccount_seller" id="createAccount_seller">
+                <h1>
+                    <center>Create Account seller</center>
                 </h1>
                 <div class="formMsg formMsg--error"></div>
                 <div class="mb-3 formInput-group">
                     <label for="exampleName" class="form-label">Name</label>
-                    <input type="text" class="form-control formInput" id="signUpName" name="signUpName">
+                    <input type="text" class="form-control formInput" id="nameSeller" name="nameSeller">
                     <div class="formInput--errorMsg"> </div>
                 </div>
                 <div class="mb-3 formInput-group">
                     <label for="exampleLastName" class="form-label">Last Name</label>
-                    <input type="text" class="form-control formInput" id="signUpLastName" name="signUpLastName">
+                    <input type="text" class="form-control formInput" id="lastNameSeller" name="lastNameSeller">
                     <div class="formInput--errorMsg"> </div>
                 </div>
                 <div class="mb-3 formInput-group">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control formInput" id="signUpEmail" name="signUpEmail" aria-describedby="emailHelp">
+                    <input type="email" class="form-control formInput" id="emailSeller" name="emailSeller" aria-describedby="emailHelp">
                     <div class="formInput--errorMsg"> </div>
                 </div>
                 <div class="mb-3 formInput-group">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control formInput" name="signUpPassword" id="signUpPassword">
+                    <input type="password" class="form-control formInput" name="pswSeller" id="pswSeller">
                     <div class="formInput--errorMsg"> </div>
                 </div>
                 <div class="mb-3 formInput-group">
                     <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control formInput" name="signUpConfirmPassword" id="signUpConfirmPassword">
+                    <input type="password" class="form-control formInput" name="psw2Seller" id="psw2Seller">
                     <div class="formInput--errorMsg"> </div>
                 </div>
                 <button type="submit" value="submit" class="btn btn-primary">Submit</button>
@@ -115,6 +129,55 @@
                 <!-- <div class="form-group">
                     <p class="text-center">By signing up you accept our <a href="https://www.gstatic.com/policies/terms/pdf/20200331/ba461e2f/google_terms_of_service_it_eu.pdf">Terms Of Use</a></p>
                 </div> -->
+
+                <div class="form-group">
+                    <p class="form-text">
+                        <a id="linkLogin" class="form-link">Already have an account? Sing in</a>
+                    </p>
+                </div>
+            </form>
+
+            <!--SIGN UP customer-->
+            <form class="form form--hidden" action="" method="post" name="createAccount_customer" id="createAccount_customer">
+                <h1>
+                    <center>Create Account customer</center>
+                </h1>
+                <div class="formMsg formMsg--error"></div>
+                <div class="mb-3 formInput-group">
+                    <label for="exampleName" class="form-label">Name</label>
+                    <input type="text" class="form-control formInput" id="nameCustomer" name="nameCustomer">
+                    <div class="formInput--errorMsg"> </div>
+                </div>
+                <div class="mb-3 formInput-group">
+                    <label for="exampleLastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control formInput" id="lastNameCustomer" name="lastNameCustomer">
+                    <div class="formInput--errorMsg"> </div>
+                </div>
+                <div class="mb-3 formInput-group">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control formInput" id="emailCustomer" name="emailCustomer" aria-describedby="emailHelp">
+                    <div class="formInput--errorMsg"> </div>
+                </div>
+                <div class="mb-3 formInput-group">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control formInput" name="pswCustomer" id="pswCustomer">
+                    <div class="formInput--errorMsg"> </div>
+                </div>
+                <div class="mb-3 formInput-group">
+                    <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control formInput" name="psw2Customer" id="psw2Customer">
+                    <div class="formInput--errorMsg"> </div>
+                </div>
+                <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+
+                <!-- <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            </div> -->
+
+                <!-- <div class="form-group">
+                                <p class="text-center">By signing up you accept our <a href="https://www.gstatic.com/policies/terms/pdf/20200331/ba461e2f/google_terms_of_service_it_eu.pdf">Terms Of Use</a></p>
+                            </div> -->
 
                 <div class="form-group">
                     <p class="form-text">
