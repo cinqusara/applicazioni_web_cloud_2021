@@ -4,6 +4,7 @@ html {
 
 body {
     font-family: 'Quicksand', sans-serif;
+    margin: 0;
     background-color: white;
     align-items: center;
     justify-content: center;
@@ -12,9 +13,12 @@ body {
     --color-error: #cc3333;
     --color-success: #4bb544;
     --color-primary: #8AA3A6;
+    --color-primary-light:#BFCAC4;
     --color-primary-dark: #025E73;
     --color-secondary: #A6907C;
 }
+
+/*CSS PER LOGIN E SIGN UP*/
 
 #login {
     max-width: 450px;
@@ -49,19 +53,19 @@ body {
 }
 
 #createAccount_seller {
-    max-width: 450px;
+    max-width: 600px;
     align-items: center;
     justify-content: center;
     position: absolute;
-    width: 450px;
+    width: 550px;
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
-    height: 650px;
+    height: 1200px;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: 0px 0 0 -225px;
+    margin: 0px 0 0 -275px;
 }
 
 #createAccount_customer {
@@ -73,7 +77,7 @@ body {
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
-    height: 650px;
+    height: 750px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -154,4 +158,103 @@ body {
 
 .form-link:hover {
     text-decoration: underline;
+}
+
+/*CSS PER SCHEDA CHOOSE_FILM*/
+
+header{
+    padding: 1rem;
+    display: flex;
+    width: auto;
+    justify-content: flex-end;
+    background-color: var(--color-primary);
+}
+
+.search{
+    background-color: transparent;
+    border: 2px solid;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    color:var(--color-primary-light);
+    font-family: inherit;
+}
+
+
+
+.search:focus{
+    outline: 0;
+    background-color: var(--color-primary);
+}
+
+
+.search::placeholder{
+    color:var(--color-primary-light);
+}
+
+.main{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+} 
+
+.movie-container {
+    width: 300px;
+    margin: 1rem;
+    border-radius: 3px;
+    box-shadow: 0.2px 4px 5px rgba(0, 0, 0, 0.2);
+    background-color: rgb(233, 233, 233);
+    position: relative;
+    overflow: hidden;
+}
+.movie-container img{
+    width: 100%;
+} 
+
+.movie-info{
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem 1rem;
+    letter-spacing: 0.5px;
+}
+
+.movie-info h3{
+    margin-top: 0;
+}
+
+.movie-info span{
+    background-color: var(--color-primary);
+    padding: 2px 3px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.movie-info span.green{
+    color: lightgreen;
+}
+
+.movie-info span.orange{
+    color: orange;
+}
+
+.movie-info span.red{
+    color: lightcoral;
+}
+
+.overview{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    padding: 1rem;
+    max-height: 100%;
+    transform: translateY(101%);
+    transition: transform 0.3s ease-in;
+}
+
+.movie-container:hover .overview{
+    transform: translateY(0);
 }

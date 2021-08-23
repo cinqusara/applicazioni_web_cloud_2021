@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
     <!-- font -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +20,8 @@
     <!--NAVBAR-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
@@ -45,7 +47,8 @@
                 <div class="formMsg formMsg--error"></div>
                 <div class="mb-3 formInput-group">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control formInput" id="loginEmail" name="loginEmail" aria-describedby="emailHelp">
+                    <input type="email" class="form-control formInput" id="loginEmail" name="loginEmail"
+                        aria-describedby="emailHelp">
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div class="mb-3 formInput-group">
@@ -82,14 +85,17 @@
                 <br>
 
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <button class="btn btn-primary" type="button" id="linkCreateAccount_customer">Create an account as a customer</button>
-                    <button class="btn btn-primary" type="button" id="linkCreateAccount_seller">Create an account as a seller</button>
+                    <button class="btn btn-primary" type="button" id="linkCreateAccount_customer">Create an account as a
+                        customer</button>
+                    <button class="btn btn-primary" type="button" id="linkCreateAccount_seller">Create an account as a
+                        seller</button>
                 </div>
 
             </form>
 
             <!--SIGN UP seller-->
-            <form class="form form--hidden" action="" method="post" name="createAccount_seller" id="createAccount_seller">
+            <form class="form form--hidden" action="" method="post" name="createAccount_seller"
+                id="createAccount_seller">
                 <h1>
                     <center>Create Account seller</center>
                 </h1>
@@ -106,9 +112,50 @@
                 </div>
                 <div class="mb-3 formInput-group">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control formInput" id="emailSeller" name="emailSeller" aria-describedby="emailHelp">
+                    <input type="email" class="form-control formInput" id="emailSeller" name="emailSeller"
+                        aria-describedby="emailHelp">
                     <div class="formInput--errorMsg"> </div>
                 </div>
+                <div class="mb-3 formInput-group">
+                    <label for="exampleShopName" class="form-label">Shop Name</label>
+                    <input type="text" class="form-control formInput" id="shopSeller" name="shopSeller">
+                    <div class="formInput--errorMsg"> </div>
+                </div>
+                <div class="mb-3 formInput-group">
+                    <label for="exampleNumber" class="form-label">Cell Number</label>
+                    <input type="number" class="form-control formInput" id="cellNumSeller" name="cellNumSeller">
+                    <div class="formInput--errorMsg"> </div>
+                </div>
+                <div class="mb-3 formInput-group">
+                    <label for="exampleNumber" class="form-label">VAT number</label>
+                    <input type="number" minlength="11" maxlength="11" class="form-control formInput" id="vatNumSeller"
+                        name="vatNumSeller">
+                    <div class="formInput--errorMsg"> </div>
+                </div>
+
+                <div class="col-12 formInput-group">
+                    <label for="inputAddress" class="form-label">Address</label>
+                    <input type="text" class="form-control formInput" id="inputAddressSeller"
+                        placeholder="1234 Main St">
+                </div>
+                <div class="col-12 formInput-group">
+                    <label for="inputAddress2" class="form-label">Address 2</label>
+                    <input type="text" class="form-control formInput" id="inputAddress2Seller"
+                        placeholder="Apartment, studio, or floor">
+                </div>
+                <div class="col-md-6 formInput-group">
+                    <label for="inputCity" class="form-label">City</label>
+                    <input type="text" class="form-control formInput" id="inputCitySeller">
+                </div>
+                <div class="col-md-4 formInput-group">
+                    <label for="inputState" class="form-label">State</label>
+                    <input type="text" class="form-control formInput" id="inputStateSeller">
+                </div>
+                <div class="col-md-2 formInput-group">
+                    <label for="inputZip" class="form-label">Zip</label>
+                    <input type="text" class="form-control formInput" id="inputZipSeller">
+                </div>
+
                 <div class="mb-3 formInput-group">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
                     <input type="password" class="form-control formInput" name="pswSeller" id="pswSeller">
@@ -119,7 +166,7 @@
                     <input type="password" class="form-control formInput" name="psw2Seller" id="psw2Seller">
                     <div class="formInput--errorMsg"> </div>
                 </div>
-                <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" onclick="location.href='choose_film.html'" value="submit" class="btn btn-primary">Submit</button>
 
                 <!-- <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -138,7 +185,8 @@
             </form>
 
             <!--SIGN UP customer-->
-            <form class="form form--hidden" action="" method="post" name="createAccount_customer" id="createAccount_customer">
+            <form class="form form--hidden" action="" method="post" name="createAccount_customer"
+                id="createAccount_customer">
                 <h1>
                     <center>Create Account customer</center>
                 </h1>
@@ -155,7 +203,13 @@
                 </div>
                 <div class="mb-3 formInput-group">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control formInput" id="emailCustomer" name="emailCustomer" aria-describedby="emailHelp">
+                    <input type="email" class="form-control formInput" id="emailCustomer" name="emailCustomer"
+                        aria-describedby="emailHelp">
+                    <div class="formInput--errorMsg"> </div>
+                </div>
+                <div class="mb-3 formInput-group">
+                    <label for="exampleInputPassword1" class="form-label">Age</label>
+                    <input type="number" class="form-control formInput" name="dateCustomer" id="dateCustomer">
                     <div class="formInput--errorMsg"> </div>
                 </div>
                 <div class="mb-3 formInput-group">
@@ -168,12 +222,12 @@
                     <input type="password" class="form-control formInput" name="psw2Customer" id="psw2Customer">
                     <div class="formInput--errorMsg"> </div>
                 </div>
-                <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+                <button onclick="location.href='choose_film.html'" type="submit" value="submit" class="btn btn-primary">Submit</button>
 
                 <!-- <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                            </div> -->
+                </div> -->
 
                 <!-- <div class="form-group">
                                 <p class="text-center">By signing up you accept our <a href="https://www.gstatic.com/policies/terms/pdf/20200331/ba461e2f/google_terms_of_service_it_eu.pdf">Terms Of Use</a></p>
@@ -181,7 +235,7 @@
 
                 <div class="form-group">
                     <p class="form-text">
-                        <a id="linkLogin" class="form-link">Already have an account? Sing in</a>
+                        <a id="linkLogin2" class="form-link">Already have an account? Sing in</a>
                     </p>
                 </div>
             </form>
@@ -190,7 +244,9 @@
 
     <ul id="users"></ul>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js " integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM " crossorigin="anonymous "></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js "
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM "
+        crossorigin="anonymous "></script>
     <script src="main.js"></script>
 
 
