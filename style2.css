@@ -5,7 +5,6 @@ html {
 body {
     font-family: 'Quicksand', sans-serif;
     margin: 0;
-    background-color: white;
     align-items: center;
     justify-content: center;
     position: absolute;
@@ -13,10 +12,13 @@ body {
     --color-error: #cc3333;
     --color-success: #4bb544;
     --color-primary: #8AA3A6;
-    --color-primary-light:#BFCAC4;
+    --color-primary-light: #BFCAC4;
     --color-primary-dark: #025E73;
-    --color-secondary: #A6907C;
+    --color-secondary: #D9753B;
+    --color-secondary-plus: #F27289;
+    background-color: whitesmoke;
 }
+
 
 /*CSS PER LOGIN E SIGN UP*/
 
@@ -34,6 +36,7 @@ body {
     top: 50%;
     left: 50%;
     margin: 0px 0 0 -225px;
+    background-color: whitesmoke;
 }
 
 #createAccount {
@@ -50,6 +53,7 @@ body {
     top: 50%;
     left: 50%;
     margin: 0px 0 0 -225px;
+    background-color: whitesmoke;
 }
 
 #createAccount_seller {
@@ -66,6 +70,7 @@ body {
     top: 50%;
     left: 50%;
     margin: 0px 0 0 -275px;
+    background-color: whitesmoke;
 }
 
 #createAccount_customer {
@@ -82,6 +87,7 @@ body {
     top: 50%;
     left: 50%;
     margin: 0px 0 0 -225px;
+    background-color: whitesmoke;
 }
 
 .container {
@@ -133,7 +139,7 @@ body {
 }
 
 .btn {
-    background-color: var(--color-primary);
+    background-color: var(--color-secondary-plus);
     border: none;
     cursor: pointer;
 }
@@ -151,7 +157,7 @@ body {
 }
 
 .form-link {
-    color: var(--color-secondary);
+    color: var(--color-secondary-plus);
     text-decoration: none;
     cursor: pointer;
 }
@@ -160,59 +166,61 @@ body {
     text-decoration: underline;
 }
 
+
 /*CSS PER SCHEDA CHOOSE_FILM*/
 
-header{
-    padding: 1rem;
-    display: flex;
-    width: auto;
-    justify-content: flex-end;
-    background-color: var(--color-primary);
+* {
+    box-sizing: border-box;
 }
 
-.search{
+header {
+    padding: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    background-color: var(--color-primary-dark);
+}
+
+.search {
     background-color: transparent;
-    border: 2px solid;
+    border: 2px solid white;
     padding: 0.5rem 1rem;
     border-radius: 50px;
     font-size: 1rem;
-    color:var(--color-primary-light);
+    color: white;
     font-family: inherit;
 }
 
-
-
-.search:focus{
+.search:focus {
     outline: 0;
-    background-color: var(--color-primary);
+    background-color: black;
 }
 
-
-.search::placeholder{
-    color:var(--color-primary-light);
+.search::placeholder {
+    color: white;
 }
 
-.main{
+main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-} 
+}
 
 .movie-container {
     width: 300px;
     margin: 1rem;
     border-radius: 3px;
-    box-shadow: 0.2px 4px 5px rgba(0, 0, 0, 0.2);
-    background-color: rgb(233, 233, 233);
+    box-shadow: 0.2px 4px 5px black;
+    background-color: var(--color-secondary-plus);
     position: relative;
     overflow: hidden;
 }
-.movie-container img{
-    width: 100%;
-} 
 
-.movie-info{
-    color: black;
+.movie-container img {
+    width: 100%;
+}
+
+.movie-info {
+    color: whitesmoke;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -220,30 +228,30 @@ header{
     letter-spacing: 0.5px;
 }
 
-.movie-info h3{
+.movie-info h3 {
     margin-top: 0;
 }
 
-.movie-info span{
-    background-color: var(--color-primary);
-    padding: 2px 3px;
+.movie-info span {
+    background-color: black;
+    padding: 0.5rem 1rem;
     border-radius: 3px;
     font-weight: bold;
 }
 
-.movie-info span.green{
-    color: lightgreen;
+.movie-info span.green {
+    color: greenyellow;
 }
 
-.movie-info span.orange{
+.movie-info span.red {
+    color: red;
+}
+
+.movie-info span.orange {
     color: orange;
 }
 
-.movie-info span.red{
-    color: lightcoral;
-}
-
-.overview{
+.overview {
     position: absolute;
     left: 0;
     right: 0;
@@ -255,6 +263,6 @@ header{
     transition: transform 0.3s ease-in;
 }
 
-.movie-container:hover .overview{
+.movie-container:hover .overview {
     transform: translateY(0);
 }
