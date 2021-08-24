@@ -7,6 +7,7 @@ const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 const SEARCH_URL = BASE_URL + '/search/movie?' + API_KEY;
 
 const main = document.getElementById('main');
+console.log(main);
 const form = document.getElementById('form_search');
 const search = document.getElementById('search');
 
@@ -41,10 +42,10 @@ function show_movie(status, data) {
                                     <span class="${getColor(vote_average)}">${vote_average}</span>
                                 </div>
 
-                            <div class="overview">
-                            <h3>Overview</h3>
-                            ${overview}
-                            </div>
+                                <div class="overview">
+                                <h3>Overview</h3>
+                                ${overview}
+                                </div>
                             `
         main.appendChild(movieEl);
     });
