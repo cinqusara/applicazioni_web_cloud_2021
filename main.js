@@ -25,6 +25,22 @@ const inputStateSeller = document.getElementById('inputStateSeller');
 const inputZipSeller = document.getElementById('inputZipSeller');
 
 
+//JSON DEGLI UTENTI GIA' LOGGATI
+var json_users = [{
+    "email": "mario.rossi@gmail.com",
+    "password": "mario123",
+    "role": "customer"
+}, {
+    "email": "marco.verdi@libero.it",
+    "password": "mverdi!",
+    "role": "seller"
+}]
+
+updateLocalStorage();
+
+
+
+
 function setInputError(inputElement, message) {
     inputElement.classList.add("formInput--error");
 }
@@ -110,20 +126,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loginForm.addEventListener("submit", event => {
         event.preventDefault();
-        checkInputs();
+        if (checkInputsLogin() == true) {
+            checkUser();
+        }
         setFormMessage(createAccountForm_seller, "submit", "submit");
         setFormMessage(createAccountForm_customer, "submit", "submit");
     })
 
     createAccountForm_seller.addEventListener("submit", event => {
         event.preventDefault();
-        checkInputs();
+        checkInputsCreateAccountSeller();
+        console.log(checkInputsCreateAccountSeller());
         setFormMessage(loginForm, "submit", "submit");
     })
 
     createAccountForm_customer.addEventListener("submit", event => {
         event.preventDefault();
-        checkInputs();
+        checkInputsCreateAccountCustomer();
+        console.log(checkInputsCreateAccountCustomer());
         setFormMessage(loginForm, "submit", "submit");
     })
 
@@ -266,9 +286,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-function checkInputs() {
-
-    // trim to remove the whitespaces
+function checkInputsLogin() {
 
     //LOGIN
     const loginEmail_value = loginEmail.value.trim();
@@ -276,12 +294,21 @@ function checkInputs() {
 
     if (loginEmail_value === '' || loginPassword_value === '') {
         setFormMessage(loginForm, "error", "Email/Password cannot be blank");
-    } else if (!isEmail(loginEmail_value)) {
-        setFormMessage(loginForm, "error", 'Not a valid email');
-    } else {
-        setFormMessage(loginForm, "success", 'Correct');
+        return false;
     }
 
+    if (!isEmail(loginEmail_value)) {
+        setFormMessage(loginForm, "error", 'Not a valid email');
+        return false;
+    }
+
+    setFormMessage(loginForm, "success", 'Correct');
+    return true;
+
+}
+
+function checkInputsCreateAccountSeller() {
+    console.log("siamo in check input customer");
     //SIGN UP SELLER
     const nameSeller_value = nameSeller.value.trim();
     const lastNameSeller_value = lastNameSeller.value.trim();
@@ -302,18 +329,35 @@ function checkInputs() {
         inputCitySeller_value === "" || inputStateSeller_value === "" ||
         inputZipSeller_value === "") {
         setFormMessage(createAccountForm_seller, "error", "Check all the fields");
-    } else if (!isEmail(emailSeller_value)) {
-        setFormMessage(createAccountForm_seller, "error", 'Not a valid email');
-    } else if (pswSeller_value != psw2Seller_value) {
-        setFormMessage(createAccountForm_seller, "error", 'Passwords does not match');
-    } else if (cellNumSeller_value.length < 7 || cellNumSeller_value.length > 9) {
-        setFormMessage(createAccountForm_seller, "error", 'Cell number is incorrect');
-    } else if (vatNumSeller_value.length != 11) {
-        setFormMessage(createAccountForm_seller, "error", 'VAT number is incorrect');
-    } else {
-        setFormMessage(createAccountForm_seller, "success", 'Correct');
+        return false;
     }
 
+    if (!isEmail(emailSeller_value)) {
+        setFormMessage(createAccountForm_seller, "error", 'Not a valid email');
+        return false;
+    }
+
+    if (pswSeller_value != psw2Seller_value) {
+        setFormMessage(createAccountForm_seller, "error", 'Passwords does not match');
+        return false;
+    }
+
+    if (cellNumSeller_value.length < 7 || cellNumSeller_value.length > 11) {
+        setFormMessage(createAccountForm_seller, "error", 'Cell number is incorrect');
+        return false;
+    }
+
+    if (vatNumSeller_value.length != 11) {
+        setFormMessage(createAccountForm_seller, "error", 'VAT number is incorrect');
+        return false;
+    }
+    setFormMessage(createAccountForm_seller, "success", 'Correct');
+    return true;
+
+}
+
+function checkInputsCreateAccountCustomer() {
+    console.log("siamo in check input customer");
     //SIGN UP CUSTOMER
     const nameCustomer_value = nameCustomer.value.trim();
     const lastNameCustomer_value = lastNameCustomer.value.trim();
@@ -326,20 +370,92 @@ function checkInputs() {
     if (nameCustomer_value === "" || lastNameCustomer_value === "" || emailCustomer_value === "" ||
         pswCustomer_value === "" || psw2Customer_value === "" || dateCustomer_value === "") {
         setFormMessage(createAccountForm_customer, "error", "Check all the fields");
-    } else if (!isEmail(emailCustomer_value)) {
-        setFormdateCustomer_value.getFullYearMessage(createAccountForm_customer, "error", 'Not a valid email');
-    } else if (pswCustomer_value != psw2Customer_value) {
-        setFormMessage(createAccountForm_customer, "error", 'Passwords does not match');
-    } else if (dateCustomer_value < 16) {
-        setFormMessage(createAccountForm_customer, "error", 'You cannot use the service if you are under 16 y.o.');
-    } else {
-        setFormMessage(createAccountForm_customer, "success", 'Correct');
+        return false;
     }
 
+    if (!isEmail(emailCustomer_value)) {
+        setFormMessage(createAccountForm_customer, "error", 'Not a valid email');
+        return false;
+    }
+
+    if (pswCustomer_value != psw2Customer_value) {
+        setFormMessage(createAccountForm_customer, "error", 'Passwords does not match');
+        return false;
+    }
+
+    if (dateCustomer_value < 16) {
+        setFormMessage(createAccountForm_customer, "error", 'You cannot use the service if you are under 16 y.o.');
+        return false;
+    }
+    setFormMessage(createAccountForm_customer, "success", 'Correct');
+    return true;
 }
 
 function isEmail(email) {
     return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
 }
 
+//FUNC LOGIN PASSAGGIO VALORI
+function checkUser() {
+    var email = document.getElementById('loginEmail');
+    console.log(email.value);
+    var pwd = document.getElementById('loginPassword');
+    console.log(pwd.value);
 
+    if (findEmailMatch(email.value.trim()) == true) {
+        console.log("trovato match")
+    } else {
+        console.log("nessun match")
+    }
+}
+
+
+//a funzione salva i dati nel local storage come una unica stringa
+function updateLocalStorage() {
+    localStorage.setItem("json_users", JSON.stringify(json_users))
+}
+
+
+
+function findEmailMatch(email) {
+    //prende l'elemento dallo storage
+    var jsonObjAsString = localStorage.getItem("json_users");
+
+    //lo ritraduce in object --> più semplici i controlli
+    const jsonObj = JSON.parse(jsonObjAsString)
+
+    for (var i = 0; i < jsonObj.length; i++) {
+        console.log(jsonObj[i].email)
+        if (jsonObj[i].email == email) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+function findRole(role) {
+    //prende l'elemento dallo storage
+    var jsonObjAsString = localStorage.getItem("json_users");
+    //lo ritraduce in object --> più semplici i controlli
+    const jsonObj = JSON.parse(jsonObjAsString)
+
+    for (var i = 0; i < jsonObj.length; i++) {
+        if (jsonObj[i].role == role) {
+            return jsonObj[i].role;
+        }
+    }
+    return "Not Found";
+}
+
+
+function addUser(email, pwd, role) {
+    //var che serve per riprendere la struttura dell'array json "json_user"
+    var obj = {}
+    obj['email'] = email;
+    obj['pwd'] = pwd;
+    obj['role'] = role;
+
+    json_users.push(obj);
+    updateLocalStorage();
+}
