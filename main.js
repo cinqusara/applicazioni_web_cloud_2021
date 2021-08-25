@@ -398,14 +398,15 @@ function isEmail(email) {
 //FUNC LOGIN PASSAGGIO VALORI
 function checkUser() {
     var email = document.getElementById('loginEmail');
-    console.log(email.value);
+    // console.log(email.value);
     var pwd = document.getElementById('loginPassword');
-    console.log(pwd.value);
-
-    if (findEmailMatch(email.value.trim()) == true) {
-        console.log("trovato match")
+    // console.log(pwd.value);
+    results = findEmailMatch(email.value.trim());
+    if (results != false) {
+        //console.log("find match");
+        findPwdMatch(pwd.value.trim(), results);
     } else {
-        console.log("nessun match")
+        setFormMessage(loginForm, "error", 'The email is not registered');
     }
 }
 
@@ -425,12 +426,22 @@ function findEmailMatch(email) {
     const jsonObj = JSON.parse(jsonObjAsString)
 
     for (var i = 0; i < jsonObj.length; i++) {
-        console.log(jsonObj[i].email)
+        //console.log(jsonObj[i].email)
         if (jsonObj[i].email == email) {
-            return true;
+            return jsonObj[i];
         }
     }
     return false;
+}
+
+function findPwdMatch(pwd, obj) {
+    if (obj.password == pwd) {
+        setFormMessage(loginForm, "success", 'The login was successful');
+        window.location.replace("choose_film.html");
+    } else {
+        setFormMessage(loginForm, "error", 'The password is incorrect');
+    }
+
 }
 
 
