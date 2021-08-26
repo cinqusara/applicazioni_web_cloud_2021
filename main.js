@@ -29,11 +29,34 @@ const inputZipSeller = document.getElementById('inputZipSeller');
 var json_users = [{
     "email": "mario.rossi@gmail.com",
     "password": "mario123",
-    "role": "customer"
-}, {
-    "email": "marco.verdi@libero.it",
-    "password": "mverdi!",
     "role": "seller"
+}, {
+    "email": "sofia.verdi@libero.it",
+    "password": "verdi!",
+    "role": "customer"
+}]
+
+var json_seller = [{
+    "name": "Mario",
+    "lastName": "Rossi",
+    "email": "mario.rossi@gmail.com",
+    "shopName": "milano shop",
+    "cellNumber": 3472877345,
+    "vatNumber": 12312312312,
+    "address": "via della spiga",
+    "address2": "12",
+    "city": "milano",
+    "state": "italy",
+    "zip": 20121,
+    "password": "mario123"
+}];
+
+json_customer = [{
+    "name": "sofia",
+    "lastName": "verdi",
+    "email": "sofia.rossi@libero.it",
+    "age": 24,
+    "password": "verdi!"
 }]
 
 updateLocalStorage();
@@ -55,6 +78,8 @@ function clearInput(inputElement) {
 }
 
 function setFormMessage(formElement, type, message) {
+    console.log("siamo in setFormMessage")
+
     //form element: può essere o loginForm o createAccountForm
     const messageElement = formElement.querySelector(".formMsg");
     //type: o messaggio di errore o di successo
@@ -129,22 +154,26 @@ document.addEventListener("DOMContentLoaded", () => {
         if (checkInputsLogin() == true) {
             checkUser();
         }
-        setFormMessage(createAccountForm_seller, "submit", "submit");
-        setFormMessage(createAccountForm_customer, "submit", "submit");
+        // setFormMessage(createAccountForm_seller, "submit", "submit");
+        // setFormMessage(createAccountForm_customer, "submit", "submit");
     })
 
     createAccountForm_seller.addEventListener("submit", event => {
         event.preventDefault();
-        checkInputsCreateAccountSeller();
-        console.log(checkInputsCreateAccountSeller());
-        setFormMessage(loginForm, "submit", "submit");
+        if (checkInputsCreateAccountSeller() == true) {
+            addUserLogin(emailSeller.value.trim(), pswSeller.value.trim(), "seller");
+            addUserSeller();
+        }
+        // setFormMessage(loginForm, "submit", "submit");
     })
 
     createAccountForm_customer.addEventListener("submit", event => {
         event.preventDefault();
-        checkInputsCreateAccountCustomer();
-        console.log(checkInputsCreateAccountCustomer());
-        setFormMessage(loginForm, "submit", "submit");
+        if (checkInputsCreateAccountCustomer() == true) {
+            addUserLogin(emailCustomer.value.trim(), pswCustomer.value.trim(), "customer");
+            addUserCustomer();
+        }
+        // setFormMessage(loginForm, "submit", "submit");
     })
 
 
@@ -308,7 +337,7 @@ function checkInputsLogin() {
 }
 
 function checkInputsCreateAccountSeller() {
-    console.log("siamo in check input customer");
+
     //SIGN UP SELLER
     const nameSeller_value = nameSeller.value.trim();
     const lastNameSeller_value = lastNameSeller.value.trim();
@@ -337,6 +366,18 @@ function checkInputsCreateAccountSeller() {
         return false;
     }
 
+    //--
+    var jsonObjAsString = localStorage.getItem("json_users");
+    const jsonObj = JSON.parse(jsonObjAsString)
+
+    for (var i = 0; i < jsonObj.length; i++) {
+        if (jsonObj[i].email == emailSeller_value) {
+            setFormMessage(createAccountForm_seller, "error", 'The email is already used');
+            return false;
+        }
+    }
+    //--
+
     if (pswSeller_value != psw2Seller_value) {
         setFormMessage(createAccountForm_seller, "error", 'Passwords does not match');
         return false;
@@ -351,13 +392,15 @@ function checkInputsCreateAccountSeller() {
         setFormMessage(createAccountForm_seller, "error", 'VAT number is incorrect');
         return false;
     }
-    setFormMessage(createAccountForm_seller, "success", 'Correct');
+    setFormMessage(createAccountForm_seller, "success", 'The registration was successful, redirect in 3 second');
+    setTimeout(function() {
+        window.location.href = 'page_seller.html';
+    }, 3000);
     return true;
 
 }
 
 function checkInputsCreateAccountCustomer() {
-    console.log("siamo in check input customer");
     //SIGN UP CUSTOMER
     const nameCustomer_value = nameCustomer.value.trim();
     const lastNameCustomer_value = lastNameCustomer.value.trim();
@@ -378,6 +421,18 @@ function checkInputsCreateAccountCustomer() {
         return false;
     }
 
+    //--
+    var jsonObjAsString = localStorage.getItem("json_users");
+    const jsonObj = JSON.parse(jsonObjAsString)
+
+    for (var i = 0; i < jsonObj.length; i++) {
+        if (jsonObj[i].email == emailCustomer_value) {
+            setFormMessage(createAccountForm_customer, "error", 'The email is already used');
+            return false;
+        }
+    }
+    //--
+
     if (pswCustomer_value != psw2Customer_value) {
         setFormMessage(createAccountForm_customer, "error", 'Passwords does not match');
         return false;
@@ -387,7 +442,10 @@ function checkInputsCreateAccountCustomer() {
         setFormMessage(createAccountForm_customer, "error", 'You cannot use the service if you are under 16 y.o.');
         return false;
     }
-    setFormMessage(createAccountForm_customer, "success", 'Correct');
+    setFormMessage(createAccountForm_customer, "success", 'The registration was successful, redirect in 3 second');
+    setTimeout(function() {
+        window.location.href = 'choose_film.html';
+    }, 3000);
     return true;
 }
 
@@ -397,6 +455,7 @@ function isEmail(email) {
 
 //FUNC LOGIN PASSAGGIO VALORI
 function checkUser() {
+    console.log("siamo in checkUser")
     var email = document.getElementById('loginEmail');
     // console.log(email.value);
     var pwd = document.getElementById('loginPassword');
@@ -413,7 +472,9 @@ function checkUser() {
 
 //a funzione salva i dati nel local storage come una unica stringa
 function updateLocalStorage() {
-    localStorage.setItem("json_users", JSON.stringify(json_users))
+    localStorage.setItem("json_users", JSON.stringify(json_users));
+    localStorage.setItem("json_seller", JSON.stringify(json_seller));
+    localStorage.setItem("json_customer", JSON.stringify(json_customer));
 }
 
 
@@ -435,11 +496,20 @@ function findEmailMatch(email) {
 }
 
 function findPwdMatch(pwd, obj) {
-    if (obj.password == pwd) {
-        setFormMessage(loginForm, "success", 'The login was successful');
-        window.location.replace("choose_film.html");
+    if (obj.password.trim() == pwd.trim()) {
+        setFormMessage(loginForm, "success", 'The login was successful, redirect in 3 second');
+        setTimeout(function() {
+            if (obj.role.trim() == "customer") {
+                window.location.href = 'choose_film.html';
+            } else {
+                window.location.href = 'page_seller.html';
+            }
+
+        }, 3000);
     } else {
         setFormMessage(loginForm, "error", 'The password is incorrect');
+        console.log("password passata: " + pwd);
+        console.log("password in local storage: " + obj.password)
     }
 
 }
@@ -460,7 +530,7 @@ function findRole(role) {
 }
 
 
-function addUser(email, pwd, role) {
+function addUserLogin(email, pwd, role) {
     //var che serve per riprendere la struttura dell'array json "json_user"
     var obj = {}
     obj['email'] = email;
@@ -468,5 +538,55 @@ function addUser(email, pwd, role) {
     obj['role'] = role;
 
     json_users.push(obj);
+    updateLocalStorage();
+}
+
+function addUserSeller() {
+    const nameSeller_value = nameSeller.value.trim();
+    const lastNameSeller_value = lastNameSeller.value.trim();
+    const emailSeller_value = emailSeller.value.trim();
+    const pswSeller_value = pswSeller.value.trim();
+    const shopSeller_value = shopSeller.value;
+    const cellNumSeller_value = cellNumSeller.value.trim();
+    const vatNumSeller_value = vatNumSeller.value.trim();
+    const inputAddressSeller_value = inputAddressSeller.value;
+    const inputAddress2Seller_value = inputAddress2Seller.value.trim();
+    const inputCitySeller_value = inputCitySeller.value.trim();
+    const inputStateSeller_value = inputStateSeller.value.trim();
+    const inputZipSeller_value = inputZipSeller.value.trim();
+
+    var obj = {}
+    obj['name'] = nameSeller_value;
+    obj['lastName'] = lastNameSeller_value;
+    obj['email'] = emailSeller_value;
+    obj['shopName'] = shopSeller_value
+    obj['cellNumber'] = cellNumSeller_value;
+    obj['vatNumber'] = vatNumSeller_value;
+    obj['address'] = inputAddressSeller_value;
+    obj['address2'] = inputAddress2Seller_value;
+    obj['city'] = inputCitySeller_value;
+    obj['state'] = inputStateSeller_value;
+    obj['zip'] = inputZipSeller_value;
+    obj['password'] = pswSeller_value;
+
+    json_seller.push(obj);
+    updateLocalStorage();
+}
+
+function addUserCustomer() {
+    const nameCustomer_value = nameCustomer.value.trim();
+    const lastNameCustomer_value = lastNameCustomer.value.trim();
+    const emailCustomer_value = emailCustomer.value.trim();
+    const pswCustomer_value = pswCustomer.value.trim();
+    const dateCustomer_value = dateCustomer.value.trim();
+
+    var obj = {}
+    obj['name'] = nameCustomer_value;
+    obj['lastName'] = lastNameCustomer_value;
+    obj['email'] = emailCustomer_value;
+    obj['age'] = dateCustomer_value;
+    obj['password'] = pswCustomer_value;
+
+    json_customer.push(obj);
     updateLocalStorage();
 }
