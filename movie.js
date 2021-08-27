@@ -7,7 +7,6 @@ const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 const SEARCH_URL = BASE_URL + '/search/movie?' + API_KEY;
 
 const main = document.getElementById('main');
-console.log(main);
 const form = document.getElementById('form_search');
 const search = document.getElementById('search');
 
@@ -30,9 +29,9 @@ function get_movies(url, callback) {
 function show_movie(status, data) {
     main.innerHTML = '';
     data.forEach(movie => {
-        const { title, poster_path, vote_average, overview } = movie;
-        console.log(movie);
-        console.log(IMG_URL + poster_path);
+        const { title, poster_path, vote_average, overview, id } = movie;
+        // console.log(movie);
+        // console.log(IMG_URL + poster_path);
         const movieEl = document.createElement('div');
         movieEl.classList.add('movie-container');
         movieEl.innerHTML = `
@@ -45,10 +44,27 @@ function show_movie(status, data) {
                                 <div class="overview">
                                 <h3>Overview</h3>
                                 ${overview}
+                                <br>
+                                <button class = "know-more" id = "${id}">Know More</button>
                                 </div>
                             `
-        main.appendChild(movieEl);
+        main.appendChild(movieEl); //aggiunge l'elemento al DOM
+
+        //quando clicchiamo sul pulsante "know more", intercetta l'evento e l'id del film
+        document.getElementById(id).addEventListener("click", () => {
+            openNav();
+        })
     });
+
+    /* Open when someone clicks on the span element */
+    function openNav() {
+        document.getElementById("myNav").style.width = "100%";
+    }
+
+    /* Close when someone clicks on the "x" symbol inside the overlay */
+    function closeNav() {
+        document.getElementById("myNav").style.width = "0%";
+    }
 }
 
 function getColor(vote) {
