@@ -24,7 +24,6 @@ const inputAddress2Seller = document.getElementById('inputAddress2Seller');
 const inputStateSeller = document.getElementById('inputStateSeller');
 const inputZipSeller = document.getElementById('inputZipSeller');
 
-
 //JSON DEGLI UTENTI GIA' LOGGATI
 var json_users = [{
     "email": "mario.rossi@gmail.com",
@@ -48,20 +47,18 @@ var json_seller = [{
     "city": "milano",
     "state": "italy",
     "zip": 20121,
-    "password": "mario123"
 }];
 
-json_customer = [{
+var json_customer = [{
     "name": "sofia",
     "lastName": "verdi",
     "email": "sofia.rossi@libero.it",
     "age": 24,
-    "password": "verdi!"
 }]
 
-updateLocalStorage();
-
-
+if (localStorage.getItem("json_users") == null) {
+    updateLocalStorage();
+}
 
 
 function setInputError(inputElement, message) {
@@ -152,6 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loginForm.addEventListener("submit", event => {
         event.preventDefault();
         if (checkInputsLogin() == true) {
+            console.log("siamo in checkInputLogin == true");
             checkUser();
         }
         // setFormMessage(createAccountForm_seller, "submit", "submit");
@@ -455,14 +453,14 @@ function isEmail(email) {
 
 //FUNC LOGIN PASSAGGIO VALORI
 function checkUser() {
-    console.log("siamo in checkUser")
+
     var email = document.getElementById('loginEmail');
-    // console.log(email.value);
+
     var pwd = document.getElementById('loginPassword');
-    // console.log(pwd.value);
+
     results = findEmailMatch(email.value.trim());
     if (results != false) {
-        //console.log("find match");
+
         findPwdMatch(pwd.value.trim(), results);
     } else {
         setFormMessage(loginForm, "error", 'The email is not registered');
@@ -487,8 +485,10 @@ function findEmailMatch(email) {
     const jsonObj = JSON.parse(jsonObjAsString)
 
     for (var i = 0; i < jsonObj.length; i++) {
-        //console.log(jsonObj[i].email)
+
         if (jsonObj[i].email == email) {
+            result = JSON.stringify(jsonObj[i]);
+
             return jsonObj[i];
         }
     }
@@ -496,7 +496,10 @@ function findEmailMatch(email) {
 }
 
 function findPwdMatch(pwd, obj) {
-    if (obj.password.trim() == pwd.trim()) {
+    console.log(pwd);
+    console.log(obj);
+    console.log(obj.pwd);
+    if (obj.password == pwd) {
         setFormMessage(loginForm, "success", 'The login was successful, redirect in 3 second');
         setTimeout(function() {
             if (obj.role.trim() == "customer") {
@@ -504,12 +507,9 @@ function findPwdMatch(pwd, obj) {
             } else {
                 window.location.href = 'page_seller.html';
             }
-
         }, 3000);
     } else {
         setFormMessage(loginForm, "error", 'The password is incorrect');
-        console.log("password passata: " + pwd);
-        console.log("password in local storage: " + obj.password)
     }
 
 }
@@ -534,7 +534,7 @@ function addUserLogin(email, pwd, role) {
     //var che serve per riprendere la struttura dell'array json "json_user"
     var obj = {}
     obj['email'] = email;
-    obj['pwd'] = pwd;
+    obj['password'] = pwd;
     obj['role'] = role;
 
     json_users.push(obj);
