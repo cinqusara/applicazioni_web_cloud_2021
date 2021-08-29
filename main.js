@@ -32,7 +32,11 @@ var json_users = [{
 }, {
     "email": "sofia.verdi@libero.it",
     "password": "verdi!",
-    "role": "customer"
+    "role": "customer",
+    "favorite":[{
+        "id": 436969,
+        "title":"The Suicide Squad"
+    }]
 }]
 
 var json_seller = [{

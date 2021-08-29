@@ -149,8 +149,26 @@ function getColor(vote) {
 }
 
 function set_favorites(movie) {
-    console.log("click");
-    console.log(movie)
+    //console.log(movie)
+    const {id, title} = movie
+    const users = localStorage.getItem("json_users")
+    const listUsers = JSON.parse(users)
+    console.log(listUsers)
+
+    var obj = {}
+    obj['id'] = id;
+    obj['title'] = title;
+    console.log(obj)
+
+    listUsers.push(obj);
+    updateLocalStorage();
+
+}
+
+function updateLocalStorage() {
+    localStorage.setItem("json_users", JSON.stringify(json_users));
+    localStorage.setItem("json_seller", JSON.stringify(json_seller));
+    localStorage.setItem("json_customer", JSON.stringify(json_customer));
 }
 
 //se clicco sulla freccia di destra
