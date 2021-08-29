@@ -362,5 +362,73 @@ main {
     }
 }
 
+.embed.hide{
+    display: none;
+}
+
+.embed.show{
+    display: inline-block;
+}
+
+.arrow{
+    position: absolute;
+}
+
+.arrow.left-arrow{
+    left: 7%;
+}
+
+.arrow.right-arrow{
+    right: 7%;
+} 
+
+.no-results{
+    color:white;
+}
+
+.btn-heart{
+    background-color: var(--color-secondary-plus);
+    color: white;
+    font-weight: bold;
+    border-radius: 40px; 
+    padding: 10px 20px;
+}
+
+.btn-heart:focus{
+    background-color: var(--color-secondary-plus);
+    color: black;
+    font-weight: bold;
+    border-radius: 40px; 
+    padding: 10px 20px;
+}
+
+/*CSS PER INFO_FILM*/
+.box-movie {
+    margin: 1rem;
+    border-radius: 3px;
+    box-shadow: 0.2px 4px 5px black;
+    background-color: var(--color-secondary-plus);
+    position: relative;
+    overflow: hidden;
+}
+
+.rating span.green {
+    color: green;
+    font-weight: bold;
+}
+
+.rating span.red {
+    color: red;
+    font-weight: bold;
+}
+
+.rating span.orange {
+    color: orange;
+    font-weight: bold;
+}
+
+.img-movie img {
+    width: 100%;
+}
 
 /*CSS PER HOME PAGE*/

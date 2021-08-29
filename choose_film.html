@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- font -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +22,8 @@
     <!--NAVBAR-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
@@ -42,18 +45,21 @@
         <!-- Button to close the overlay navigation -->
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <!-- Overlay content -->
-        <div class="overlay-content">
-        </div>
+        <div class="overlay-content" id="overlay-content"> </div>
+
+        <a href="javascript:void(0)" class="arrow left-arrow" id="left-arrow">&#8612;</a>
+        <a href="javascript:void(0)" class="arrow right-arrow" id="right-arrow">&#8614;</a>
     </div>
 
 
     <p>
-        <h1>Choose some of your favorite movies</h1>
+    <h1>Choose some of your favorite movies</h1>
     </p><br>
 
     <main id="main">
         <div class="movie-container">
-            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1040&q=80" alt="image">
+            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1040&q=80"
+                alt="image">
             <div class="movie-info">
                 <h3>Movie Title</h3>
                 <span class="green">9.8</span>
@@ -62,11 +68,14 @@
 
             <div class="overview">
                 <h3>Overview</h3>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, facere amet. Fugiat harum sit soluta voluptate minus labore quidem, quod molestias atque, temporibus facilis aut necessitatibus dolore non perspiciatis vero!
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, facere amet. Fugiat harum sit
+                soluta voluptate minus labore quidem, quod molestias atque, temporibus facilis aut necessitatibus dolore
+                non perspiciatis vero!
             </div>
         </div>
         <div class="movie-container">
-            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1040&q=80" alt="image">
+            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1040&q=80"
+                alt="image">
             <div class="movie-info">
                 <h3>Movie Title</h3>
                 <span class="green">9.8</span>
@@ -74,11 +83,14 @@
 
             <div class="overview">
                 <h3>Overview</h3>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, facere amet. Fugiat harum sit soluta voluptate minus labore quidem, quod molestias atque, temporibus facilis aut necessitatibus dolore non perspiciatis vero!
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, facere amet. Fugiat harum sit
+                soluta voluptate minus labore quidem, quod molestias atque, temporibus facilis aut necessitatibus dolore
+                non perspiciatis vero!
             </div>
         </div>
         <div class="movie-container">
-            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1040&q=80" alt="image">
+            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1040&q=80"
+                alt="image">
             <div class="movie-info">
                 <h3>Movie Title</h3>
                 <span class="green">9.8</span>
@@ -86,14 +98,18 @@
 
             <div class="overview">
                 <h3>Overview</h3>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, facere amet. Fugiat harum sit soluta voluptate minus labore quidem, quod molestias atque, temporibus facilis aut necessitatibus dolore non perspiciatis vero!
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, facere amet. Fugiat harum sit
+                soluta voluptate minus labore quidem, quod molestias atque, temporibus facilis aut necessitatibus dolore
+                non perspiciatis vero!
             </div>
         </div>
 
     </main>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
     <script src="movie.js"></script>
 
 
