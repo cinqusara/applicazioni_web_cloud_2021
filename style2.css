@@ -429,20 +429,24 @@ main {
     margin: 5px;
 }
 
-/* .overlay-content-favourite span {
+.overlay-content-favourite div {
     padding: 0.5rem 1rem;
     border-radius: 3px;
     border: white;
 }
 
-.text-nav{
+.my-fav-movie{
+    color: white;
+}
+
+.favorite-content{
     color: white;
     opacity: 0.5;
 }
 
-.info-favorite{
+.title-favorite{
     color: rgb(250, 0, 125);
-} */
+}
 
 /*CSS PER INFO_FILM*/
 .box-movie {

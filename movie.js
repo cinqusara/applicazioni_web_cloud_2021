@@ -12,7 +12,7 @@ const search = document.getElementById('search');
 const overlayContent = document.getElementById('overlay-content');
 const leftArrow = document.getElementById('left-arrow');
 const rightArrow = document.getElementById('right-arrow');
-const overlayFavorite = document.getElementById('overlay-favorite')
+const boxContentFavorite = document.getElementById('box-content-favorite')
 
 var loggedUser = localStorage.getItem("logged_user");
 var loggedUserObj = JSON.parse(loggedUser);
@@ -129,6 +129,21 @@ function closeNav() {
 //nav dei preferiti
 function openNav_favorite() {
     document.getElementById("favorite-nav").style.width = "100%";
+    boxContentFavorite.innerHTML = '';
+    var favorites = localStorage.getItem("user_favorites");
+    var objFavorites = JSON.parse(favorites)
+    console.log(objFavorites)
+    objFavorites.forEach(fav => {
+        const { title, id } = fav;
+        const favoriteContent = document.createElement('div');
+        favoriteContent.classList.add('favorite-content');
+        favoriteContent.innerHTML = `
+                    <b class="title-favorite">Title: </b>
+                    ${title}
+                    <br><br>
+        `
+        boxContentFavorite.appendChild(favoriteContent);
+    });
 }
 
 function closeNav_favorite() {
@@ -164,16 +179,23 @@ function getColor(vote) {
 function set_favorites(movie) {
     //console.log(movie)
     const { id, title } = movie;
-
     var obj = {}
     obj['id'] = id;
     obj['title'] = title;
-
     jsonObj.forEach(user => {
         if (user.email == loggedUserObj) {
             // console.log(user.favorite)
             user.favorite.push(obj)
             updateLocalStorage();
+        }
+    });
+}
+
+function get_favorite() {
+    jsonObj.forEach(user => {
+        if (user.email == loggedUserObj) {
+            //console.log(typeof JSON.stringify(user.favorites))
+            localStorage.setItem("user_favorites", JSON.stringify(user.favorite))
         }
     });
 }
@@ -208,7 +230,7 @@ form.addEventListener('submit', e => {
     if (searchTerms) {
         get_url(SEARCH_URL + '&query=' + searchTerms, show_movie);
     } else {
-        get_url(API_URL_POP, show_movie);
+        get_url(API_URL_POP, show_movie)
     }
 })
 
