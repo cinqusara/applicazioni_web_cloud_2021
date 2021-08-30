@@ -64,7 +64,6 @@ if (localStorage.getItem("json_users") == null) {
     updateLocalStorage();
 }
 
-
 function setInputError(inputElement, message) {
     inputElement.classList.add("formInput--error");
 }
@@ -153,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loginForm.addEventListener("submit", event => {
         event.preventDefault();
         if (checkInputsLogin() == true) {
-            console.log("siamo in checkInputLogin == true");
+           //console.log("siamo in checkInputLogin == true");
             checkUser();
         }
         // setFormMessage(createAccountForm_seller, "submit", "submit");
@@ -395,6 +394,7 @@ function checkInputsCreateAccountSeller() {
         return false;
     }
     setFormMessage(createAccountForm_seller, "success", 'The registration was successful, redirect in 3 second');
+    localStorage.setItem("logged_user", JSON.stringify(emailSeller_value));
     setTimeout(function() {
         window.location.href = 'page_seller.html';
     }, 3000);
@@ -445,6 +445,7 @@ function checkInputsCreateAccountCustomer() {
         return false;
     }
     setFormMessage(createAccountForm_customer, "success", 'The registration was successful, redirect in 3 second');
+    localStorage.setItem("logged_user", JSON.stringify(emailCustomer_value));
     setTimeout(function() {
         window.location.href = 'choose_film.html';
     }, 3000);
@@ -464,7 +465,6 @@ function checkUser() {
 
     results = findEmailMatch(email.value.trim());
     if (results != false) {
-
         findPwdMatch(pwd.value.trim(), results);
     } else {
         setFormMessage(loginForm, "error", 'The email is not registered');
@@ -478,8 +478,6 @@ function updateLocalStorage() {
     localStorage.setItem("json_seller", JSON.stringify(json_seller));
     localStorage.setItem("json_customer", JSON.stringify(json_customer));
 }
-
-
 
 function findEmailMatch(email) {
     //prende l'elemento dallo storage
@@ -505,6 +503,7 @@ function findPwdMatch(pwd, obj) {
     console.log(obj.pwd);
     if (obj.password == pwd) {
         setFormMessage(loginForm, "success", 'The login was successful, redirect in 3 second');
+        localStorage.setItem("logged_user", JSON.stringify(obj.email));
         setTimeout(function() {
             if (obj.role.trim() == "customer") {
                 window.location.href = 'choose_film.html';
@@ -517,7 +516,6 @@ function findPwdMatch(pwd, obj) {
     }
 
 }
-
 
 function findRole(role) {
     //prende l'elemento dallo storage
@@ -532,7 +530,6 @@ function findRole(role) {
     }
     return "Not Found";
 }
-
 
 function addUserLogin(email, pwd, role) {
     //var che serve per riprendere la struttura dell'array json "json_user"

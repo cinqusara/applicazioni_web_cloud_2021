@@ -6,13 +6,19 @@ const API_URL_POP = BASE_URL + '/discover/movie?sort_by=popularity.desc&' + API_
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 const SEARCH_URL = BASE_URL + '/search/movie?' + API_KEY;
 
-
 const main = document.getElementById('main');
 const form = document.getElementById('form_search');
 const search = document.getElementById('search');
 const overlayContent = document.getElementById('overlay-content');
 const leftArrow = document.getElementById('left-arrow');
 const rightArrow = document.getElementById('right-arrow');
+const overlayFavorite = document.getElementById('overlay-favorite')
+
+var loggedUser = localStorage.getItem("logged_user");
+var loggedUserObj = JSON.parse(loggedUser);
+
+var jsonObjAsString = localStorage.getItem("json_users");
+var jsonObj = JSON.parse(jsonObjAsString);
 
 get_url(API_URL_POP, show_movie);
 
@@ -63,10 +69,7 @@ function show_movie(status, data) {
         document.getElementById(poster_path).addEventListener("click", () => {
             set_favorites(movie);
         })
-
     });
-
-
 }
 
 function get_video(stauts, videoData) {
@@ -110,6 +113,7 @@ function get_video(stauts, videoData) {
     }
 }
 
+//nav dei video
 function openNav(movie) {
     const id = movie.id;
     //quando apro 'know more' di un film gli passo l'id e prendo i video
@@ -120,6 +124,15 @@ function openNav(movie) {
 
 function closeNav() {
     document.getElementById("myNav").style.width = "0%";
+}
+
+//nav dei preferiti
+function openNav_favorite() {
+    document.getElementById("favorite-nav").style.width = "100%";
+}
+
+function closeNav_favorite() {
+    document.getElementById("favorite-nav").style.width = "0%";
 }
 
 var activeVideo = 0; //video sempre attivo
@@ -150,25 +163,23 @@ function getColor(vote) {
 
 function set_favorites(movie) {
     //console.log(movie)
-    const {id, title} = movie
-    const users = localStorage.getItem("json_users")
-    const listUsers = JSON.parse(users)
-    console.log(listUsers)
+    const { id, title } = movie;
 
     var obj = {}
     obj['id'] = id;
     obj['title'] = title;
-    console.log(obj)
 
-    listUsers.push(obj);
-    updateLocalStorage();
-
+    jsonObj.forEach(user => {
+        if (user.email == loggedUserObj) {
+            // console.log(user.favorite)
+            user.favorite.push(obj)
+            updateLocalStorage();
+        }
+    });
 }
 
 function updateLocalStorage() {
-    localStorage.setItem("json_users", JSON.stringify(json_users));
-    localStorage.setItem("json_seller", JSON.stringify(json_seller));
-    localStorage.setItem("json_customer", JSON.stringify(json_customer));
+    localStorage.setItem("json_users", JSON.stringify(jsonObj));
 }
 
 //se clicco sulla freccia di destra
@@ -200,6 +211,12 @@ form.addEventListener('submit', e => {
         get_url(API_URL_POP, show_movie);
     }
 })
+
+document.getElementById('btn-favorite').addEventListener('click', () => {
+    openNav_favorite();
+})
+
+
 
 
 

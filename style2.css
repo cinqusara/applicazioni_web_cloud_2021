@@ -384,10 +384,19 @@ main {
 
 .no-results{
     color:white;
+    font-size: bold;
 }
 
 .btn-heart{
     background-color: var(--color-secondary-plus);
+    color: white;
+    font-weight: bold;
+    border-radius: 40px; 
+    padding: 10px 20px;
+}
+
+.btn-heart:hover{
+    background-color: var(--color-secondary);
     color: white;
     font-weight: bold;
     border-radius: 40px; 
@@ -401,6 +410,39 @@ main {
     border-radius: 40px; 
     padding: 10px 20px;
 }
+
+#btn-favorite{
+    background-color: #212529;
+    color: white;
+    font-weight: bold;
+    border-radius: 40px; 
+    padding: 10px 20px;
+    margin: 5px;
+}
+
+#btn-favorite:hover{
+    background-color: var(--color-secondary-plus);
+    color: white;
+    font-weight: bold;
+    border-radius: 40px; 
+    padding: 10px 20px;
+    margin: 5px;
+}
+
+/* .overlay-content-favourite span {
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+    border: white;
+}
+
+.text-nav{
+    color: white;
+    opacity: 0.5;
+}
+
+.info-favorite{
+    color: rgb(250, 0, 125);
+} */
 
 /*CSS PER INFO_FILM*/
 .box-movie {

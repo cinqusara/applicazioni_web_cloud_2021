@@ -33,6 +33,7 @@
                         <a class="nav-link active" aria-current="page" href="home2.html">HOME</a>
                     </li>
                 </ul>
+                <button class="btn btn-heart" id="btn-favorite"><i class="fa fa-heart"></i></button>
                 <form class="d-flex form_search" id="form_search">
                     <input type="text" placeholder="search" class="search" id="search">
                 </form>
@@ -40,7 +41,7 @@
         </div>
     </nav>
 
-    <!--W2SCHOOL - finestra laterale -->
+    <!--W2SCHOOL - finestra laterale VIDEO -->
     <div id="myNav" class="overlay">
         <!-- Button to close the overlay navigation -->
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -49,6 +50,14 @@
 
         <a href="javascript:void(0)" class="arrow left-arrow" id="left-arrow">&#8612;</a>
         <a href="javascript:void(0)" class="arrow right-arrow" id="right-arrow">&#8614;</a>
+    </div>
+
+    <!--W2SCHOOL - finestra laterale PREFERITI -->
+    <div id="favorite-nav" class="overlay">
+        <!-- Button to close the overlay navigation -->
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav_favorite()">&times;</a>
+        <!-- Overlay content -->
+        <div class="overlay-favorite overlay-content" id="overlay-favorite"> </div>
     </div>
 
 
