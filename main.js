@@ -503,7 +503,7 @@ function findPwdMatch(pwd, obj) {
     console.log(obj.pwd);
     if (obj.password == pwd) {
         setFormMessage(loginForm, "success", 'The login was successful, redirect in 3 second');
-        localStorage.setItem("logged_user", JSON.stringify(obj.email));
+        localStorage.setItem("logged_user_email", JSON.stringify(obj.email));
         setTimeout(function() {
             if (obj.role.trim() == "customer") {
                 window.location.href = 'choose_film.html';

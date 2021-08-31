@@ -14,8 +14,8 @@ const leftArrow = document.getElementById('left-arrow');
 const rightArrow = document.getElementById('right-arrow');
 const boxContentFavorite = document.getElementById('box-content-favorite')
 
-var loggedUser = localStorage.getItem("logged_user");
-var loggedUserObj = JSON.parse(loggedUser);
+var loggedUserEmail = localStorage.getItem("logged_user_email");
+var loggedUserEmailObj = JSON.parse(loggedUserEmail);
 
 var jsonObjAsString = localStorage.getItem("json_users");
 var jsonObj = JSON.parse(jsonObjAsString);
@@ -68,6 +68,7 @@ function show_movie(status, data) {
         //gli passo il poster path perchè è l'unico dato univico oltre l'id
         document.getElementById(poster_path).addEventListener("click", () => {
             set_favorites(movie);
+
         })
     });
 }
@@ -128,11 +129,12 @@ function closeNav() {
 
 //nav dei preferiti
 function openNav_favorite() {
+    get_favorite();
     document.getElementById("favorite-nav").style.width = "100%";
     boxContentFavorite.innerHTML = '';
     var favorites = localStorage.getItem("user_favorites");
     var objFavorites = JSON.parse(favorites)
-    console.log(objFavorites)
+    //console.log(objFavorites)
     objFavorites.forEach(fav => {
         const { title, id } = fav;
         const favoriteContent = document.createElement('div');
@@ -177,27 +179,56 @@ function getColor(vote) {
 }
 
 function set_favorites(movie) {
+
     //console.log(movie)
+    console.log("1. set favorite")
     const { id, title } = movie;
+    var found = false;
     var obj = {}
     obj['id'] = id;
     obj['title'] = title;
     jsonObj.forEach(user => {
-        if (user.email == loggedUserObj) {
-            // console.log(user.favorite)
-            user.favorite.push(obj)
-            updateLocalStorage();
+        console.log("2. dentro ciclo");
+        if (user.email == loggedUserEmailObj) {
+            var favorites = user.favorite;
+            console.log("dentro a if")
+            //console.log(favorites)
+            favorites.forEach(fav => {
+                // console.log(user.favorite)
+                if (fav.id == id) {
+                    console.log("dentro la coppia");
+                    found = true;
+                    //var newFavorites = remove_fav(id, favorites);
+                    // console.log("new favorites"+newFavorites)
+                    // localStorage.setItem("json_users", JSON.stringify(newFavorites));
+                }
+            });
+            if (found == false) {
+                user.favorite.push(obj)
+            } else {
+                remove_fav(favorites, id);
+            }
         }
     });
+    updateLocalStorage();
 }
 
 function get_favorite() {
     jsonObj.forEach(user => {
-        if (user.email == loggedUserObj) {
+        if (user.email == loggedUserEmailObj) {
             //console.log(typeof JSON.stringify(user.favorites))
             localStorage.setItem("user_favorites", JSON.stringify(user.favorite))
         }
     });
+}
+
+function remove_fav(favorites, id) {
+    console.log("4. in remove favorite")
+    const fav = favorites.filter(film => film.id !== id);
+    console.log(fav);
+    var jsonObjAsString = localStorage.getItem("json_users");
+    var jsonObj = JSON.parse(jsonObjAsString);
+    console.log(jsonObj.favorite);
 }
 
 function updateLocalStorage() {
