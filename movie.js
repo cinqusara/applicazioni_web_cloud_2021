@@ -26,7 +26,7 @@ function get_url(url, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
     xhr.responseType = 'json';
-    xhr.onload = function () {
+    xhr.onload = function() {
         var status = xhr.status;
         //console.log(xhr.response);
         callback(status, xhr.response.results);
@@ -35,7 +35,7 @@ function get_url(url, callback) {
 };
 
 function show_movie(status, data) {
-    //console.log(data)
+    console.log(data)
     main.innerHTML = '';
     data.forEach(movie => {
         const { title, poster_path, vote_average, overview, id } = movie;
@@ -101,7 +101,7 @@ function get_video(stauts, videoData) {
             <br>
             ${info.join('')}
             `
-            //embed.join('') aggiunge l'HTML di embed.push nell'overlay-content
+                //embed.join('') aggiunge l'HTML di embed.push nell'overlay-content
             overlayContent.innerHTML = content;
             activeVideo = 0;
             show_videos();
@@ -118,7 +118,7 @@ function get_video(stauts, videoData) {
 function openNav(movie) {
     const id = movie.id;
     //quando apro 'know more' di un film gli passo l'id e prendo i video
-    const VIDEO_URL = BASE_URL + '/movie/' + id + '/videos?' + API_KEY;  //BASE_URL + '/movie/' + id -> dalla doc per prendere un video con le API
+    const VIDEO_URL = BASE_URL + '/movie/' + id + '/videos?' + API_KEY; //BASE_URL + '/movie/' + id -> dalla doc per prendere un video con le API
     localStorage.setItem("movie_info", JSON.stringify(movie));
     get_url(VIDEO_URL, get_video);
 }
@@ -134,7 +134,7 @@ function openNav_favorite() {
     boxContentFavorite.innerHTML = '';
     var favorites = localStorage.getItem("user_favorites");
     var objFavorites = JSON.parse(favorites)
-    //console.log(objFavorites)
+        //console.log(objFavorites)
     objFavorites.forEach(fav => {
         const { title, id } = fav;
         const favoriteContent = document.createElement('div');
@@ -154,6 +154,7 @@ function closeNav_favorite() {
 
 var activeVideo = 0; //video sempre attivo
 var totVideo = 0;
+
 function show_videos() {
     const embedClasses = document.querySelectorAll('.embed'); //ritorna una node list, simile ad un array
     totVideo = embedClasses.length;
@@ -179,28 +180,21 @@ function getColor(vote) {
 }
 
 function set_favorites(movie) {
-
     //console.log(movie)
-    console.log("1. set favorite")
     const { id, title } = movie;
     var found = false;
     var obj = {}
     obj['id'] = id;
     obj['title'] = title;
     jsonObj.forEach(user => {
-        console.log("2. dentro ciclo");
         if (user.email == loggedUserEmailObj) {
             var favorites = user.favorite;
-            console.log("dentro a if")
             //console.log(favorites)
             favorites.forEach(fav => {
                 // console.log(user.favorite)
                 if (fav.id == id) {
                     console.log("dentro la coppia");
                     found = true;
-                    //var newFavorites = remove_fav(id, favorites);
-                    // console.log("new favorites"+newFavorites)
-                    // localStorage.setItem("json_users", JSON.stringify(newFavorites));
                 }
             });
             if (found == false) {
@@ -223,12 +217,13 @@ function get_favorite() {
 }
 
 function remove_fav(favorites, id) {
-    console.log("4. in remove favorite")
     const fav = favorites.filter(film => film.id !== id);
-    console.log(fav);
-    var jsonObjAsString = localStorage.getItem("json_users");
-    var jsonObj = JSON.parse(jsonObjAsString);
-    console.log(jsonObj.favorite);
+    jsonObj.forEach(user => {
+        if (user.email == loggedUserEmailObj) {
+            user.favorite = fav
+            updateLocalStorage();
+        }
+    });
 }
 
 function updateLocalStorage() {
@@ -268,16 +263,3 @@ form.addEventListener('submit', e => {
 document.getElementById('btn-favorite').addEventListener('click', () => {
     openNav_favorite();
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
