@@ -33,10 +33,7 @@ var json_users = [{
     "email": "sofia.verdi@libero.it",
     "password": "verdi!",
     "role": "customer",
-    "favorite":[{
-        "id": 436969,
-        "title":"The Suicide Squad"
-    }]
+    "favorite": []
 }]
 
 var json_seller = [{
@@ -152,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loginForm.addEventListener("submit", event => {
         event.preventDefault();
         if (checkInputsLogin() == true) {
-           //console.log("siamo in checkInputLogin == true");
+            //console.log("siamo in checkInputLogin == true");
             checkUser();
         }
         // setFormMessage(createAccountForm_seller, "submit", "submit");

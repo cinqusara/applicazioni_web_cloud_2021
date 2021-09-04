@@ -362,69 +362,77 @@ main {
     }
 }
 
-.embed.hide{
+.embed.hide {
     display: none;
 }
 
-.embed.show{
+.embed.show {
     display: inline-block;
 }
 
-.arrow{
+.arrow {
     position: absolute;
 }
 
-.arrow.left-arrow{
+.arrow.left-arrow {
     left: 7%;
 }
 
-.arrow.right-arrow{
+.arrow.right-arrow {
     right: 7%;
-} 
+}
 
-.no-results{
-    color:white;
+.no-results {
+    color: white;
     font-size: bold;
 }
 
-.btn-heart{
+.btn-heart {
     background-color: var(--color-secondary-plus);
     color: white;
     font-weight: bold;
-    border-radius: 40px; 
+    border-radius: 40px;
     padding: 10px 20px;
 }
 
-.btn-heart:hover{
-    background-color: var(--color-secondary);
+.btn-heart-toggle {
+    background-color: white;
+    color: red;
+    font-weight: bold;
+    border-radius: 60px;
+    padding: 10px 20px;
+}
+
+.btn-heart:hover {
+    background-color: red;
     color: white;
     font-weight: bold;
-    border-radius: 40px; 
+    border-radius: 40px;
     padding: 10px 20px;
 }
 
-.btn-heart:focus{
+.btn-heart:focus {
     background-color: var(--color-secondary-plus);
     color: black;
     font-weight: bold;
-    border-radius: 40px; 
+    border-radius: 40px;
     padding: 10px 20px;
 }
 
-#btn-favorite{
+#btn-favorite {
     background-color: #212529;
     color: white;
     font-weight: bold;
-    border-radius: 40px; 
+    border-radius: 60px;
     padding: 10px 20px;
     margin: 5px;
 }
 
-#btn-favorite:hover{
-    background-color: var(--color-secondary-plus);
-    color: white;
+#btn-favorite:hover {
+    background-color: #212529;
+    color: var(--color-secondary-plus);
     font-weight: bold;
-    border-radius: 40px; 
+    border-radius: 60px;
     padding: 10px 20px;
     margin: 5px;
 }
@@ -435,20 +443,22 @@ main {
     border: white;
 }
 
-.my-fav-movie{
+.my-fav-movie {
     color: white;
 }
 
-.favorite-content{
+.favorite-content {
     color: white;
     opacity: 0.5;
 }
 
-.title-favorite{
+.title-favorite {
     color: rgb(250, 0, 125);
 }
 
+
 /*CSS PER INFO_FILM*/
+
 .box-movie {
     margin: 1rem;
     border-radius: 3px;
@@ -476,5 +486,6 @@ main {
 .img-movie img {
     width: 100%;
 }
+
 
 /*CSS PER HOME PAGE*/

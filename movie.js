@@ -39,12 +39,17 @@ function show_movie(status, data) {
     main.innerHTML = '';
     data.forEach(movie => {
         const { title, poster_path, vote_average, overview, id } = movie;
+        var img = IMG_URL + poster_path
+        if (poster_path == null) {
+            img = "https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1040&q=80"
+        }
         //console.log(movie);
-        // console.log(IMG_URL + poster_path);
+        console.log(IMG_URL + poster_path);
         const movieEl = document.createElement('div');
         movieEl.classList.add('movie-container');
+
         movieEl.innerHTML = `
-                                <img src="${IMG_URL + poster_path}">
+                                <img src="${img}">
                                 <div class="movie-info">
                                     <h3>${title}</h3>
                                     <span class="${getColor(vote_average)}">${vote_average}</span>
@@ -135,17 +140,19 @@ function openNav_favorite() {
     var favorites = localStorage.getItem("user_favorites");
     var objFavorites = JSON.parse(favorites)
         //console.log(objFavorites)
-    objFavorites.forEach(fav => {
-        const { title, id } = fav;
-        const favoriteContent = document.createElement('div');
-        favoriteContent.classList.add('favorite-content');
-        favoriteContent.innerHTML = `
+    if (objFavorites.length > 0) {
+        objFavorites.forEach(fav => {
+            const { title, id } = fav;
+            const favoriteContent = document.createElement('div');
+            favoriteContent.classList.add('favorite-content');
+            favoriteContent.innerHTML = `
                     <b class="title-favorite">Title: </b>
                     ${title}
                     <br><br>
-        `
-        boxContentFavorite.appendChild(favoriteContent);
-    });
+                    `
+            boxContentFavorite.appendChild(favoriteContent);
+        });
+    }
 }
 
 function closeNav_favorite() {
@@ -199,8 +206,9 @@ function set_favorites(movie) {
             });
             if (found == false) {
                 user.favorite.push(obj)
+                check_toggle(movie.poster_path, true);
             } else {
-                remove_fav(favorites, id);
+                remove_fav(favorites, movie);
             }
         }
     });
@@ -216,18 +224,38 @@ function get_favorite() {
     });
 }
 
-function remove_fav(favorites, id) {
-    const fav = favorites.filter(film => film.id !== id);
+function remove_fav(favorites, movie) {
+    const fav = favorites.filter(film => film.id !== movie.id);
     jsonObj.forEach(user => {
         if (user.email == loggedUserEmailObj) {
             user.favorite = fav
             updateLocalStorage();
         }
     });
+    check_toggle(movie.poster_path, false);
 }
 
 function updateLocalStorage() {
     localStorage.setItem("json_users", JSON.stringify(jsonObj));
+}
+
+function check_toggle(poster, addFav) {
+    console.log("dentro a check_toggle")
+    var toToggle = document.getElementById(poster)
+    console.log(toToggle)
+    console.log(poster)
+    if (addFav == true) {
+        toToggle.classList.remove("btn-heart");
+        toToggle.classList.add("btn-heart-toggle")
+    } else {
+        toToggle.classList.add("btn-heart");
+        toToggle.classList.remove("btn-heart-toggle")
+    }
+}
+
+function show_img(status, img) {
+    console.log("img")
+    console.log(status)
 }
 
 //se clicco sulla freccia di destra
