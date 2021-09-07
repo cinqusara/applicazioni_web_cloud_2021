@@ -65,7 +65,7 @@ body {
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
-    height: 1250px;
+    height: 1300px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -82,7 +82,7 @@ body {
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
-    height: 750px;
+    height: 800px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -456,6 +456,11 @@ main {
     color: rgb(250, 0, 125);
 }
 
+.noFilm {
+    color: red;
+    opacity: 0.5;
+}
+
 
 /*CSS PER INFO_FILM*/
 
@@ -489,3 +494,37 @@ main {
 
 
 /*CSS PER HOME PAGE*/
+
+
+/*CSS PER PAGE SELLER*/
+
+.info-account {
+    color: white;
+}
+
+#seller_changes {
+    max-width: 600px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 550px;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 50px white(0, 0, 0, 0.2);
+    height: 1300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0px 0 0 -275px;
+    background-color: rgba(245, 245, 245, 0);
+}
+
+.form-account-changes {
+    background-color: rgba(245, 245, 245, 0);
+    color: white;
+}
+
+.account-input {
+    background-color: rgba(245, 245, 245, 0);
+    border-color: rgba(255, 255, 255, 0.26);
+}

@@ -35,20 +35,26 @@ function get_url(url, callback) {
 };
 
 function show_movie(status, data) {
-    console.log(data)
+    console.log(data.length)
     main.innerHTML = '';
-    data.forEach(movie => {
-        const { title, poster_path, vote_average, overview, id } = movie;
-        var img = IMG_URL + poster_path
-        if (poster_path == null) {
-            img = "https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1040&q=80"
-        }
-        //console.log(movie);
-        console.log(IMG_URL + poster_path);
-        const movieEl = document.createElement('div');
-        movieEl.classList.add('movie-container');
+    if (data.length == 0) {
+        console.log("no result")
+        main.innerHTML = `
+        <h2 class = "noFilm">No Results</h2>
+        `
+    } else {
+        data.forEach(movie => {
+            const { title, poster_path, vote_average, overview, id } = movie;
+            var img = IMG_URL + poster_path
+            if (poster_path == null) {
+                img = "https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1040&q=80"
+            }
+            //console.log(movie);
+            console.log(IMG_URL + poster_path);
+            const movieEl = document.createElement('div');
+            movieEl.classList.add('movie-container');
 
-        movieEl.innerHTML = `
+            movieEl.innerHTML = `
                                 <img src="${img}">
                                 <div class="movie-info">
                                     <h3>${title}</h3>
@@ -63,19 +69,20 @@ function show_movie(status, data) {
                                 <button class="btn btn-heart" id = "${poster_path}"><i class="fa fa-heart"></i></button> 
                                 </div>
                             `
-        main.appendChild(movieEl); //aggiunge l'elemento al DOM
+            main.appendChild(movieEl); //aggiunge l'elemento al DOM
 
-        //quando clicchiamo sul pulsante "know more", intercetta l'evento e l'id del film
-        document.getElementById(id).addEventListener("click", () => {
-            openNav(movie);
-        })
+            //quando clicchiamo sul pulsante "know more", intercetta l'evento e l'id del film
+            document.getElementById(id).addEventListener("click", () => {
+                openNav(movie);
+            })
 
-        //gli passo il poster path perchè è l'unico dato univico oltre l'id
-        document.getElementById(poster_path).addEventListener("click", () => {
-            set_favorites(movie);
+            //gli passo il poster path perchè è l'unico dato univico oltre l'id
+            document.getElementById(poster_path).addEventListener("click", () => {
+                set_favorites(movie);
 
-        })
-    });
+            })
+        });
+    }
 }
 
 function get_video(stauts, videoData) {
