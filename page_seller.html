@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 
+    <!--ICON-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link href="style2.css" type="text/css" rel="stylesheet">
     <title>OnlyMovie</title>
 
@@ -31,7 +34,7 @@
                     </li>
                 </ul>
                 <form class="d-flex">
-                    <button type="button" class="btn btn-secondary" id="account">ACCOUNT</button>
+                    <button type="button" class="btn btn-secondary btn-settings" id="account"><i class="fa fa-cog"></i></button>
                 </form>
             </div>
         </div>
@@ -43,7 +46,15 @@
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <!-- Overlay content -->
         <div class="overlay-content" id="account-content">
-
+            <h1 class="info-account">Account</h1>
+            <br><br>
+            <p class="info-account">Manage your information, privacy and security to better adapt Only Movie to your needs
+            </p>
+            <br><br>
+            <div class="formMsg formMsg--error"></div>
+            <br>
+            <form class="seller_changes" action="" method="post" name="seller_changes" id="seller_changes">
+            </form>
         </div>
     </div>
 
@@ -58,13 +69,13 @@
 
             <div class="row g-2">
                 <div class="col-6">
-                    <div class="p-3 border bg-light box-movie">
+                    <div class="p-3 border bg-light box-movie" id="shop-name">
                         <h3>Film in my Shop</h3>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="p-3 border bg-light box-movie" id="info-account">
-                        <h3>My Account</h3>
+                        <h3>General Informations</h3>
                         <b id="name-seller">Name: </b>
 
                     </div>
@@ -75,7 +86,10 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="p-3 border bg-light box-movie">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum quia ad saepe quis! Sit corrupti officia nemo delectus ea harum ratione natus deleniti, possimus dicta dignissimos tenetur odio molestias dolores.</div>
+                    <div class="p-3 border bg-light box-movie">
+                        <h3>Statistics</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo laborum laudantium, iusto accusamus quod, reprehenderit recusandae vel qui officia, incidunt ducimus dolorem facere tempora optio ea nostrum autem impedit blanditiis?</p>
+                    </div>
                 </div>
             </div>
         </div>

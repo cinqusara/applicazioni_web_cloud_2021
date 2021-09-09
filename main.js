@@ -28,7 +28,8 @@ const inputZipSeller = document.getElementById('inputZipSeller');
 var json_users = [{
     "email": "mario.rossi@gmail.com",
     "password": "mario123",
-    "role": "seller"
+    "role": "seller",
+    "film_price": 0.5
 }, {
     "email": "sofia.verdi@libero.it",
     "password": "verdi!",
@@ -159,7 +160,9 @@ document.addEventListener("DOMContentLoaded", () => {
     createAccountForm_seller.addEventListener("submit", event => {
         event.preventDefault();
         if (checkInputsCreateAccountSeller() == true) {
-            addUserLogin(emailSeller.value.trim(), pswSeller.value.trim(), "seller");
+            var num = Math.round(Math.random() * 100);
+            var filmPrice = num / 100;
+            addUserLogin(emailSeller.value.trim(), pswSeller.value.trim(), filmPrice, "seller");
             addUserSeller();
         }
         // setFormMessage(loginForm, "submit", "submit");
@@ -167,8 +170,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     createAccountForm_customer.addEventListener("submit", event => {
         event.preventDefault();
+        var filmPrice = 0;
         if (checkInputsCreateAccountCustomer() == true) {
-            addUserLogin(emailCustomer.value.trim(), pswCustomer.value.trim(), "customer");
+            addUserLogin(emailCustomer.value.trim(), pswCustomer.value.trim(), filmPrice, "customer");
             addUserCustomer();
         }
         // setFormMessage(loginForm, "submit", "submit");
@@ -391,7 +395,7 @@ function checkInputsCreateAccountSeller() {
         return false;
     }
     setFormMessage(createAccountForm_seller, "success", 'The registration was successful, redirect in 3 second');
-    localStorage.setItem("logged_user", JSON.stringify(emailSeller_value));
+    localStorage.setItem("logged_user_email", JSON.stringify(emailSeller_value));
     setTimeout(function() {
         window.location.href = 'page_seller.html';
     }, 3000);
@@ -442,7 +446,7 @@ function checkInputsCreateAccountCustomer() {
         return false;
     }
     setFormMessage(createAccountForm_customer, "success", 'The registration was successful, redirect in 3 second');
-    localStorage.setItem("logged_user", JSON.stringify(emailCustomer_value));
+    localStorage.setItem("logged_user_email", JSON.stringify(emailCustomer_value));
     setTimeout(function() {
         window.location.href = 'choose_film.html';
     }, 3000);
@@ -528,13 +532,15 @@ function findRole(role) {
     return "Not Found";
 }
 
-function addUserLogin(email, pwd, role) {
+function addUserLogin(email, pwd, filmPrice, role) {
     //var che serve per riprendere la struttura dell'array json "json_user"
     var obj = {}
     obj['email'] = email;
     obj['password'] = pwd;
     obj['role'] = role;
-
+    if (role == "seller") {
+        obj['film_price'] = filmPrice;
+    }
     json_users.push(obj);
     updateLocalStorage();
 }

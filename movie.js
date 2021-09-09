@@ -154,10 +154,14 @@ function openNav_favorite() {
             favoriteContent.classList.add('favorite-content');
             favoriteContent.innerHTML = `
                     <b class="title-favorite">Title: </b>
-                    ${title}
+                    ${title}&nbsp;&nbsp;
                     <br><br>
                     `
             boxContentFavorite.appendChild(favoriteContent);
+
+            document.getElementById(id).addEventListener("click", () => {
+                window.location.href = "info_film.html";
+            })
         });
     }
 }

@@ -278,6 +278,17 @@ main {
     margin-top: 5px;
 }
 
+.know-more-plus {
+    background-color: var(--color-secondary-plus);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border: 0;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin-top: 5px;
+}
+
 
 /* The Overlay (background) */
 
@@ -449,7 +460,7 @@ main {
 
 .favorite-content {
     color: white;
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 .title-favorite {
@@ -493,9 +504,6 @@ main {
 }
 
 
-/*CSS PER HOME PAGE*/
-
-
 /*CSS PER PAGE SELLER*/
 
 .info-account {
@@ -527,4 +535,24 @@ main {
 .account-input {
     background-color: rgba(245, 245, 245, 0);
     border-color: rgba(255, 255, 255, 0.26);
+    color: white;
 }
+
+.account-input:focus {
+    background-color: rgba(245, 245, 245, 0.068);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+.account-input:disabled {
+    background-color: rgba(245, 245, 245, 0.068);
+    border-color: rgba(255, 255, 255, 0.26);
+    color: rgba(255, 255, 255, 0.746);
+}
+
+.btn-settings {
+    font-size: 20px;
+}
+
+
+/*CSS PER HOME PAGE*/
