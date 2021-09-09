@@ -11,7 +11,7 @@ const accountNav = document.getElementById("account-content");
 const formAccount = document.getElementById("seller_changes");
 const shop = document.getElementById("shop-name");
 const sellerChanges = document.getElementById("seller_changes");
-
+const boxFilms = document.getElementById("box_films");
 
 get_info();
 
@@ -36,6 +36,20 @@ function get_info() {
             shop.innerHTML = `
                     <h3>Film in <b>${user.shopName}</b></h3>
             `
+
+            var films = get_film()
+            console.log(films)
+            boxFilms.innerHTML = ''
+
+            films.forEach(f => {
+                const filmShop = document.createElement('div');
+                filmShop.classList.add("film_shop");
+                filmShop.innerHTML = `                 
+                <b>Title: </b>${f}
+            `
+                boxFilms.appendChild(filmShop)
+            });
+
         }
     });
 }
@@ -132,17 +146,9 @@ document.getElementById("account").addEventListener("click", () => {
     openNav();
 })
 
-// const nameSeller = document.getElementById('nameSeller');
-// const lastNameSeller = document.getElementById('lastNameSeller');
-// const oldPswSeller = document.getElementById('oldPswSeller');
-// const pswSeller = document.getElementById('pswSeller');
-// const psw2Seller = document.getElementById('psw2Seller');
-// const shopSeller = document.getElementById('shopSeller');
-// const cellNumSeller = document.getElementById('cellNumSeller');
-// const vatNumSeller = document.getElementById('vatNumSeller');
-// const inputAddressSeller = document.getElementById('inputAddressSeller');
-// const inputStateSeller = document.getElementById('inputStateSeller');
-// const inputZipSeller = document.getElementById('inputZipSeller');
+document.getElementById("shop").addEventListener("click", () => {
+    window.location.href = "shop_seller.html";
+})
 
 function checkInputstSeller() {
 
@@ -304,4 +310,22 @@ document.getElementById("seller_changes").addEventListener("submit", event => {
 function updateLocalStorage() {
     localStorage.setItem("json_seller", JSON.stringify(jsonSellerObj));
     localStorage.setItem("json_users", JSON.stringify(jsonObj));
+}
+
+function get_film() {
+    var films = []
+    jsonObj.forEach(user => {
+        if (user.email.trim() == loggedUserEmailObj) {
+            shopFilm = user.shop;
+            console.log(user.shop)
+            shopFilm.forEach(f => {
+                console.log(f.title)
+                films.push(f.title)
+                console.log(typeof films)
+            });
+
+        }
+    })
+    return films
+
 }

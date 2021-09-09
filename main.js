@@ -29,7 +29,8 @@ var json_users = [{
     "email": "mario.rossi@gmail.com",
     "password": "mario123",
     "role": "seller",
-    "film_price": 0.5
+    "film_price": 0.5,
+    "shop": []
 }, {
     "email": "sofia.verdi@libero.it",
     "password": "verdi!",

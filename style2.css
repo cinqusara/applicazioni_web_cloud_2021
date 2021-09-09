@@ -555,4 +555,20 @@ main {
 }
 
 
+/*CSS MOVIE_SHOP*/
+
+.shop-content {
+    color: white;
+    opacity: 0.6;
+}
+
+.title-film {
+    color: rgb(250, 0, 125);
+}
+
+.my-shop-movie {
+    color: white;
+}
+
+
 /*CSS PER HOME PAGE*/
