@@ -12,13 +12,94 @@ const search = document.getElementById('search');
 const overlayContent = document.getElementById('overlay-content');
 const leftArrow = document.getElementById('left-arrow');
 const rightArrow = document.getElementById('right-arrow');
-const boxContentFavorite = document.getElementById('box-content-favorite')
+const boxContentFavorite = document.getElementById('box-content-favorite');
+const tagsEl = document.getElementById('tags');
 
 var loggedUserEmail = localStorage.getItem("logged_user_email");
 var loggedUserEmailObj = JSON.parse(loggedUserEmail);
 
 var jsonObjAsString = localStorage.getItem("json_users");
 var jsonObj = JSON.parse(jsonObjAsString);
+
+var selectGenre = [];
+
+const genre = [{
+        "id": 28,
+        "name": "Action"
+    },
+    {
+        "id": 12,
+        "name": "Adventure"
+    },
+    {
+        "id": 16,
+        "name": "Animation"
+    },
+    {
+        "id": 35,
+        "name": "Comedy"
+    },
+    {
+        "id": 80,
+        "name": "Crime"
+    },
+    {
+        "id": 99,
+        "name": "Documentary"
+    },
+    {
+        "id": 18,
+        "name": "Drama"
+    },
+    {
+        "id": 10751,
+        "name": "Family"
+    },
+    {
+        "id": 14,
+        "name": "Fantasy"
+    },
+    {
+        "id": 36,
+        "name": "History"
+    },
+    {
+        "id": 27,
+        "name": "Horror"
+    },
+    {
+        "id": 10402,
+        "name": "Music"
+    },
+    {
+        "id": 9648,
+        "name": "Mystery"
+    },
+    {
+        "id": 10749,
+        "name": "Romance"
+    },
+    {
+        "id": 878,
+        "name": "Science Fiction"
+    },
+    {
+        "id": 10770,
+        "name": "TV Movie"
+    },
+    {
+        "id": 53,
+        "name": "Thriller"
+    },
+    {
+        "id": 10752,
+        "name": "War"
+    },
+    {
+        "id": 37,
+        "name": "Western"
+    }
+]
 
 get_url(API_URL_POP, show_movie);
 
@@ -79,7 +160,6 @@ function show_movie(status, data) {
             //gli passo il poster path perchè è l'unico dato univico oltre l'id
             document.getElementById(poster_path).addEventListener("click", () => {
                 set_favorites(movie);
-
             })
         });
     }
@@ -159,9 +239,9 @@ function openNav_favorite() {
                     `
             boxContentFavorite.appendChild(favoriteContent);
 
-            document.getElementById(id).addEventListener("click", () => {
-                window.location.href = "info_film.html";
-            })
+            // document.getElementById(id).addEventListener("click", () => {
+            //     window.location.href = "info_film.html";
+            // })
         });
     }
 }
@@ -264,10 +344,52 @@ function check_toggle(poster, addFav) {
     }
 }
 
-function show_img(status, img) {
-    console.log("img")
-    console.log(status)
+set_genre();
+
+function set_genre(url, callback) {
+    tagsEl.innerHTML = ` `;
+    genre.forEach(genre => {
+        const t = document.createElement('div');
+        t.classList.add('tag');
+        t.id = genre.id;
+        t.innerText = genre.name;
+        t.addEventListener('click', () => {
+            if (selectGenre.length == 0) {
+                selectGenre.push(genre.id)
+            } else {
+                if (selectGenre.includes(genre.id)) {
+                    selectGenre.forEach((id, index) => { //index serve per capire in che posizione è il genere
+                        if (id == genre.id) {
+                            selectGenre.splice(index, 1) //rimuoviamo 1 elemento alla posizione "index"
+                        }
+                    })
+                } else {
+                    selectGenre.push(genre.id)
+                }
+            }
+            console.log(selectGenre)
+            get_url(API_URL_POP + '&with_genres=' + encodeURI(selectGenre.join(',')), show_movie) //separa tutti gli elementi di selectGenre con una ,
+            show_genre();
+        })
+        tagsEl.append(t);
+    })
 }
+
+
+
+function show_genre() {
+    const tags = document.querySelectorAll('.tag'); //ritorna l'array con ogni tag
+    tags.forEach(tag => { //elimina il tag colorato se ci riclicco
+        tag.classList.remove('hightlight')
+    })
+    if (selectGenre.length != 0) {
+        selectGenre.forEach(id => {
+            const hightlightTag = document.getElementById(id);
+            hightlightTag.classList.add('hightlight');
+        })
+    }
+}
+
 
 //se clicco sulla freccia di destra
 rightArrow.addEventListener('click', () => {

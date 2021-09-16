@@ -20,6 +20,8 @@ var loggedUserEmailObj = JSON.parse(loggedUserEmail);
 var jsonObjAsString = localStorage.getItem("json_users");
 var jsonObj = JSON.parse(jsonObjAsString);
 
+
+
 get_url(API_URL_POP, show_movie);
 
 function get_url(url, callback) {
@@ -78,7 +80,7 @@ function show_movie(status, data) {
 
             //gli passo il poster path perchè è l'unico dato univico oltre l'id
             document.getElementById(poster_path).addEventListener("click", () => {
-                set_shop(movie);
+                add_to_catalogue(movie);
 
             })
         });
@@ -198,30 +200,47 @@ function getColor(vote) {
     }
 }
 
-function set_shop(movie) {
+function add_to_catalogue(movie) {
     //console.log(movie)
-    const { id, title } = movie;
+    const { id, title, vote_average } = movie;
+
     var found = false;
     var obj = {}
     obj['id'] = id;
     obj['title'] = title;
+
     jsonObj.forEach(user => {
         if (user.email == loggedUserEmailObj) {
+            var film = {}
+            film['id'] = id;
+            film['email'] = user.email
+            film['title'] = title;
+            film['price_selling'] = get_price_selling(user.film_price, vote_average);
+            film['shop'] = user.shopName
+            film['price_rental'] = get_price_rental(user.film_price, vote_average);
+            console.log(film)
+
             var shop = user.shop;
-            //console.log(favorites)
+
             shop.forEach(film => {
-                // console.log(user.favorite)
                 if (film.id == id) {
-                    console.log("dentro la coppia");
+                    //console.log("dentro la coppia");
                     found = true;
                 }
             });
+
             if (found == false) {
-                user.shop.push(obj)
+                user.shop.push(obj);
+                var movies = JSON.parse(localStorage.getItem("json_all_movies"));
+                console.log(movies);
+                movies.push(film);
+                localStorage.setItem("json_all_movies", JSON.stringify(movies));
+
                 check_toggle(movie.poster_path, true);
             } else {
                 remove_film(shop, movie);
             }
+            //  }
         }
     });
     updateLocalStorage();
@@ -283,3 +302,15 @@ form.addEventListener('submit', e => {
 document.getElementById('btn-myShop').addEventListener('click', () => {
     openNav_shop();
 })
+
+function get_price_selling(c, vote) {
+    var priceFilm = c * vote * 1.5
+    priceFilm = priceFilm.toFixed(1);
+    return priceFilm;
+}
+
+function get_price_rental(c, vote) {
+    var priceFilm = vote * c
+    priceFilm = priceFilm.toFixed(1);
+    return priceFilm;
+}

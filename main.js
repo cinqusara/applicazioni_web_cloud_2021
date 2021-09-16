@@ -30,6 +30,7 @@ var json_users = [{
     "password": "mario123",
     "role": "seller",
     "film_price": 0.5,
+    "shopName": "milano shop",
     "shop": []
 }, {
     "email": "sofia.verdi@libero.it",
@@ -49,18 +50,27 @@ var json_seller = [{
     "address2": "12",
     "city": "milano",
     "state": "italy",
-    "zip": 20121,
+    "zip": 20121
 }];
 
 var json_customer = [{
     "name": "sofia",
     "lastName": "verdi",
     "email": "sofia.rossi@libero.it",
-    "age": 24,
+    "age": 24
+}]
+
+var json_all_movies = [{
+    "id": "",
+    "email": "",
+    "title": "",
+    "price_selling": "",
+    "shop": "",
+    "price_rental": ""
 }]
 
 if (localStorage.getItem("json_users") == null) {
-    updateLocalStorage();
+    initLocalStorage();
 }
 
 function setInputError(inputElement, message) {
@@ -163,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (checkInputsCreateAccountSeller() == true) {
             var num = Math.round(Math.random() * 100);
             var filmPrice = num / 100;
-            addUserLogin(emailSeller.value.trim(), pswSeller.value.trim(), filmPrice, "seller");
+            addUserLogin(emailSeller.value.trim(), pswSeller.value.trim(), filmPrice, shopSeller.value.trim(), "seller");
             addUserSeller();
         }
         // setFormMessage(loginForm, "submit", "submit");
@@ -475,10 +485,11 @@ function checkUser() {
 
 
 //a funzione salva i dati nel local storage come una unica stringa
-function updateLocalStorage() {
+function initLocalStorage() {
     localStorage.setItem("json_users", JSON.stringify(json_users));
     localStorage.setItem("json_seller", JSON.stringify(json_seller));
     localStorage.setItem("json_customer", JSON.stringify(json_customer));
+    localStorage.setItem("json_all_movies", JSON.stringify(json_all_movies));
 }
 
 function findEmailMatch(email) {
@@ -489,10 +500,8 @@ function findEmailMatch(email) {
     const jsonObj = JSON.parse(jsonObjAsString)
 
     for (var i = 0; i < jsonObj.length; i++) {
-
         if (jsonObj[i].email == email) {
             result = JSON.stringify(jsonObj[i]);
-
             return jsonObj[i];
         }
     }
@@ -533,17 +542,25 @@ function findRole(role) {
     return "Not Found";
 }
 
-function addUserLogin(email, pwd, filmPrice, role) {
-    //var che serve per riprendere la struttura dell'array json "json_user"
+function addUserLogin(email, pwd, filmPrice, shopName, role) {
+    var users_string = localStorage.getItem("json_users");
+    var users = JSON.parse(users_string);
+    console.log(users)
+
     var obj = {}
     obj['email'] = email;
     obj['password'] = pwd;
     obj['role'] = role;
     if (role == "seller") {
         obj['film_price'] = filmPrice;
+        obj['shopName'] = shopName
+        obj['shop'] = []
+    } else {
+        obj['favorite'] = []
     }
-    json_users.push(obj);
-    updateLocalStorage();
+    users.push(obj);
+    localStorage.setItem("json_users", JSON.stringify(users));
+
 }
 
 function addUserSeller() {
@@ -560,6 +577,9 @@ function addUserSeller() {
     const inputStateSeller_value = inputStateSeller.value.trim();
     const inputZipSeller_value = inputZipSeller.value.trim();
 
+    var seller_string = localStorage.getItem("json_seller");
+    var seller = JSON.parse(seller_string)
+
     var obj = {}
     obj['name'] = nameSeller_value;
     obj['lastName'] = lastNameSeller_value;
@@ -574,8 +594,9 @@ function addUserSeller() {
     obj['zip'] = inputZipSeller_value;
     obj['password'] = pswSeller_value;
 
-    json_seller.push(obj);
-    updateLocalStorage();
+    seller.push(obj);
+
+    localStorage.setItem("json_seller", JSON.stringify(seller));
 }
 
 function addUserCustomer() {
@@ -585,6 +606,9 @@ function addUserCustomer() {
     const pswCustomer_value = pswCustomer.value.trim();
     const dateCustomer_value = dateCustomer.value.trim();
 
+    var customer_string = localStorage.getItem("json_customer");
+    var customer = JSON.parse(customer_string);
+
     var obj = {}
     obj['name'] = nameCustomer_value;
     obj['lastName'] = lastNameCustomer_value;
@@ -592,6 +616,7 @@ function addUserCustomer() {
     obj['age'] = dateCustomer_value;
     obj['password'] = pswCustomer_value;
 
-    json_customer.push(obj);
-    updateLocalStorage();
+    customer.push(obj);
+
+    localStorage.setItem("json_customer", JSON.stringify(customer));
 }

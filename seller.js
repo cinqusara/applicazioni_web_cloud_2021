@@ -318,12 +318,13 @@ function get_film() {
         if (user.email.trim() == loggedUserEmailObj) {
             shopFilm = user.shop;
             console.log(user.shop)
-            shopFilm.forEach(f => {
-                console.log(f.title)
-                films.push(f.title)
-                console.log(typeof films)
-            });
-
+            if (user.shop != undefined) {
+                shopFilm.forEach(f => {
+                    console.log(f.title)
+                    films.push(f.title)
+                    console.log(typeof films)
+                });
+            }
         }
     })
     return films

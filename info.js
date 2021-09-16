@@ -81,6 +81,9 @@ const genre = [{
 const director = localStorage.getItem("director")
 const directorFilm = JSON.parse(director)
 
+const all_movies_string = localStorage.getItem("all_movies")
+const all_movies = JSON.parse(all_movies_string)
+
 const API_KEY = 'api_key=627ed135a25c4ee59e036330690af646';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
@@ -149,8 +152,9 @@ function page_film() {
                         <h3> Overview </h3>
                         ${overview}
                     </div>
-                    <div class="p-3 border bg-light box-movie">
-                       Costo
+                    <div class="p-3 border bg-light box-movie" id = "all_movies">
+                       Price
+                       ${get_all_movies(title)}
                     </div>
                 </div>
             </div>
@@ -185,4 +189,20 @@ function get_genre() {
         });
     });
     return results;
+}
+
+function get_all_movies(title) {
+    // boxFilm = document.getElementById('all_movies')
+    // all_movies.forEach(m => {
+    //     if (m.title == title) {
+    //         const priceMovie = document.createElement('div');
+    //         priceMovie.innerHTML = `
+    //         Shop = ${m.shop} <br>
+    //         Rental Price = ${m.price_rental} <br>
+    //         Selling Price = ${m.price_selling}
+
+    //         `
+    //         boxFilm.appendChild(priceMovie);
+    //     }
+    // });
 }
