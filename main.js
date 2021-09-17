@@ -31,14 +31,16 @@ var json_users = [{
     "role": "seller",
     "film_price": 0.5,
     "shopName": "milano shop",
-    "shop": []
+    "shop": [],
+    "statistics": []
 }, {
     "email": "sofia.verdi@libero.it",
     "password": "verdi!",
     "role": "customer",
     "favorite": [],
     "bought_movies": [],
-    "cards": []
+    "cards": [],
+    "purchase_history": []
 }]
 
 var json_seller = [{
@@ -557,10 +559,12 @@ function addUserLogin(email, pwd, filmPrice, shopName, role) {
         obj['film_price'] = filmPrice;
         obj['shopName'] = shopName
         obj['shop'] = []
+        obj['statistics'] = []
     } else {
         obj['favorite'] = []
         obj['bought_movies'] = []
         obj['cards'] = []
+        obj['purchase_history'] = []
     }
     users.push(obj);
     localStorage.setItem("json_users", JSON.stringify(users));

@@ -248,7 +248,7 @@ function openNav_buy_film(m) {
                     Shop: ${m.shop}<br><br>
                     Price:&nbsp; <h3><b>$${m.price_selling}</b></h3>
                     <br>
-                    <img src="ticket1.png" class="img-buy-film" style="max-width:300px;max-height:300px;  cursor: pointer;"  onclick="onClickImg('selling')">
+                    <img src="ticket1.png" class="img-buy-film" style="max-width:300px;max-height:300px;  cursor: pointer;"  onclick="onClickImg('selling', ${m.price_selling}, '${m.email}')">
                     <br> <br>
                     <p style = "color:whitesmoke">By purchasing the movie, you have the possibility to see it as many times as you want</p>
                 </div>
@@ -261,7 +261,7 @@ function openNav_buy_film(m) {
                 Shop: ${m.shop}<br><br>
                 Price:&nbsp; <h3><b>$${m.price_rental}</b></h3>
                 <br>
-                <img src="ticket2.png" class="img-buy-film" style="max-width:300px;max-height:300px; cursor: pointer;" onclick="onClickImg('rental')">
+                <img src="ticket2.png" class="img-buy-film" style="max-width:300px;max-height:300px; cursor: pointer;" onclick="onClickImg('rental', ${m.price_rental}, '${m.email}')">
                 <br> <br>
                 <p style ="color:whitesmoke">By renting the movie, you have the possibility to see it only for the next 72 hours</p>
             </div>
@@ -275,12 +275,14 @@ function closeNav_buy_film() {
     document.getElementById("nav_buy_film").style.width = "0%";
 }
 
-function onClickImg(buying) {
+function onClickImg(buying, price, email) {
     console.log("click")
     var obj = {}
     obj['title'] = title;
     obj['id'] = id;
     obj['buying'] = buying;
+    obj['price'] = price;
+    obj['email_seller'] = email;
 
     console.log(obj)
 

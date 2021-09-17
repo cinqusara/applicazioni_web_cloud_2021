@@ -686,7 +686,6 @@ main {
 
 .container-payment {
     padding: 5px 20px 15px 20px;
-    border: 1px solid lightgrey;
     border-radius: 3px;
 }
 
@@ -738,4 +737,28 @@ main {
     left: 50%;
     margin: 0px 0 0 -275px;
     background-color: rgba(245, 245, 245, 0);
+}
+
+.use-card {
+    background-color: var(--color-primary);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border: 0;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin-top: 3px;
+    float: inherit;
+}
+
+.useThisCard {
+    background-color: var(--color-primary-dark);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border: 0;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin-top: 3px;
+    float: inherit;
 }
