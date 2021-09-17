@@ -37,7 +37,7 @@ function get_url(url, callback) {
 };
 
 function show_movie(status, data) {
-    console.log(data.length)
+    /*   console.log(data.length) */
     main.innerHTML = '';
     if (data.length == 0) {
         console.log("no result")
@@ -52,7 +52,7 @@ function show_movie(status, data) {
                 img = "https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1040&q=80"
             }
             //console.log(movie);
-            console.log(IMG_URL + poster_path);
+            /*   console.log(IMG_URL + poster_path); */
             const movieEl = document.createElement('div');
             movieEl.classList.add('movie-container');
 
@@ -68,7 +68,9 @@ function show_movie(status, data) {
                                 ${overview}
                                 <br>
                                 <button class = "know-more" id = "${id}">Know More</button>
-                                <button class="btn btn-heart" id = "${poster_path}"><i class="fa fa-shopping-basket"></i></button> 
+                                <button class="btn btn-heart" id = "${poster_path}"><i class="bi bi-shop"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shop" viewBox="0 0 16 16">
+                                <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z"/>
+                              </svg></i></button> 
                                 </div>
                             `
             main.appendChild(movieEl); //aggiunge l'elemento al DOM
@@ -218,7 +220,7 @@ function add_to_catalogue(movie) {
             film['price_selling'] = get_price_selling(user.film_price, vote_average);
             film['shop'] = user.shopName
             film['price_rental'] = get_price_rental(user.film_price, vote_average);
-            console.log(film)
+            /*  console.log(film) */
 
             var shop = user.shop;
 
@@ -232,15 +234,14 @@ function add_to_catalogue(movie) {
             if (found == false) {
                 user.shop.push(obj);
                 var movies = JSON.parse(localStorage.getItem("json_all_movies"));
-                console.log(movies);
+                /*  console.log(movies); */
                 movies.push(film);
                 localStorage.setItem("json_all_movies", JSON.stringify(movies));
-
                 check_toggle(movie.poster_path, true);
             } else {
-                remove_film(shop, movie);
+                var movies = JSON.parse(localStorage.getItem("json_all_movies"));
+                remove_film(shop, movie, movies, user.email);
             }
-            //  }
         }
     });
     updateLocalStorage();
@@ -249,32 +250,40 @@ function add_to_catalogue(movie) {
 function get_film() {
     jsonObj.forEach(user => {
         if (user.email == loggedUserEmailObj) {
-            //console.log(typeof JSON.stringify(user.favorites))
             localStorage.setItem("shop_seller", JSON.stringify(user.shop))
         }
     });
 }
 
-function remove_film(shop, movie) {
+function remove_film(shop, movie, all_movies, email) {
+    console.log("remove")
+    console.log(all_movies)
+    console.log(email)
     const s = shop.filter(film => film.id !== movie.id);
+    const m = all_movies.filter(film => (film.id !== movie.id || film.email !== email))
+
+    console.log(m)
     jsonObj.forEach(user => {
         if (user.email == loggedUserEmailObj) {
             user.shop = s
             updateLocalStorage();
         }
     });
+    localStorage.removeItem("json_all_movies");
+    localStorage.setItem("json_all_movies", JSON.stringify(m))
     check_toggle(movie.poster_path, false);
 }
+
 
 function updateLocalStorage() {
     localStorage.setItem("json_users", JSON.stringify(jsonObj));
 }
 
 function check_toggle(poster, addFilm) {
-    console.log("dentro a check_toggle")
+    /* console.log("dentro a check_toggle") */
     var toToggle = document.getElementById(poster)
-    console.log(toToggle)
-    console.log(poster)
+        /*  console.log(toToggle)
+         console.log(poster) */
     if (addFilm == true) {
         toToggle.classList.remove("btn-heart");
         toToggle.classList.add("btn-heart-toggle")

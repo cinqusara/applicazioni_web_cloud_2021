@@ -14,12 +14,16 @@ const leftArrow = document.getElementById('left-arrow');
 const rightArrow = document.getElementById('right-arrow');
 const boxContentFavorite = document.getElementById('box-content-favorite');
 const tagsEl = document.getElementById('tags');
+const formAccount = document.getElementById("client_changes");
 
 var loggedUserEmail = localStorage.getItem("logged_user_email");
 var loggedUserEmailObj = JSON.parse(loggedUserEmail);
 
 var jsonObjAsString = localStorage.getItem("json_users");
 var jsonObj = JSON.parse(jsonObjAsString);
+
+var jsonClientAsString = localStorage.getItem("json_customer");
+var jsonClientObj = JSON.parse(jsonClientAsString);
 
 var selectGenre = [];
 
@@ -131,7 +135,7 @@ function show_movie(status, data) {
                 img = "https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1040&q=80"
             }
             //console.log(movie);
-            console.log(IMG_URL + poster_path);
+            //console.log(IMG_URL + poster_path);
             const movieEl = document.createElement('div');
             movieEl.classList.add('movie-container');
 
@@ -328,7 +332,9 @@ function remove_fav(favorites, movie) {
 
 function updateLocalStorage() {
     localStorage.setItem("json_users", JSON.stringify(jsonObj));
+    localStorage.setItem("json_customer", JSON.stringify(jsonClientObj));
 }
+
 
 function check_toggle(poster, addFav) {
     console.log("dentro a check_toggle")
@@ -346,7 +352,7 @@ function check_toggle(poster, addFav) {
 
 set_genre();
 
-function set_genre(url, callback) {
+function set_genre() {
     tagsEl.innerHTML = ` `;
     genre.forEach(genre => {
         const t = document.createElement('div');
@@ -423,4 +429,184 @@ form.addEventListener('submit', e => {
 
 document.getElementById('btn-favorite').addEventListener('click', () => {
     openNav_favorite();
+})
+
+function openNav_client() {
+    document.getElementById("account-nav-client").style.width = "100%";
+    const formAccount = document.getElementById("client_changes");
+
+    jsonClientObj.forEach(user => {
+        if (user.email == loggedUserEmailObj) {
+
+            formAccount.innerHTML = `
+            <div class="formMsg formMsg--error"></div>
+            <div class="mb-3 formInput-group">
+                <label for="exampleName" class="form-label">Name</label>
+                <input type="text" class="form-control formInput account-input" id="nameCustomer" name="nameCustomer" value = "${user.name}">
+                <div class="formInput--errorMsg"> </div>
+            </div>
+            <div class="mb-3 formInput-group">
+                <label for="exampleLastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control formInput account-input" id="lastNameCustomer" name="lastNameCustomer" value = "${user.lastName}">
+                <div class="formInput--errorMsg"> </div>
+            </div>
+            <div class="mb-3 formInput-group">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control formInput account-input" id="emailCustomer" name="emailCustomer" aria-describedby="emailHelp" value ="${user.email}" disabled>
+                <div class="formInput--errorMsg"> </div>
+            </div>
+            <div class="mb-3 formInput-group">
+                <label for="exampleInputPassword1" class="form-label">Age</label>
+                <input type="number" class="form-control formInput account-input" name="dateCustomer" id="dateCustomer" value ="${user.age}">
+                <div class="formInput--errorMsg"> </div>
+            </div>
+            <div class="mb-3 formInput-group form-account-changes">
+                        <label for="exampleInputPassword1" class="form-label">Old Password</label>
+                        <input type="password" class="form-control account-input" name="oldPswCustomer" id="oldPswCustomer">
+                        <div class="formInput--errorMsg"> </div>
+                    </div>
+                    <div class="mb-3 formInput-group form-account-changes">
+                    <label for="exampleInputPassword1" class="form-label">New Password</label>
+                    <input type="password" class="form-control account-input" name="pswCustomer" id="pswCustomer">
+                    <div class="formInput--errorMsg"> </div>
+                </div>
+                    <div class="mb-3 formInput-group form-account-changes">
+                        <label for="exampleInputPassword1" class="form-label">Confirm New Password</label>
+                        <input type="password" class="form-control account-input" name="psw2Customer" id="psw2Customer">
+                        <div class="formInput--errorMsg"> </div>
+                    </div>
+            <br>
+            <button type="submit" value="submit" id="sumbitChangesClient" class="btn btn-primary">Submit</button>
+            
+            `
+        }
+    })
+
+}
+
+function closeNav_client() {
+    document.getElementById("account-nav-client").style.width = "0%";
+}
+
+document.getElementById("btn-settings-client").addEventListener("click", () => {
+    openNav_client();
+})
+
+function checkInputClient() {
+
+    var oldPsw = '';
+
+    jsonObj.forEach(user => {
+        if (user.email == loggedUserEmailObj) {
+            oldPsw = user.password
+            console.log(oldPsw)
+        }
+    });
+
+    const nameCustomer = document.getElementById('nameCustomer');
+    const lastNameCustomer = document.getElementById('lastNameCustomer');
+    const oldPswCustomer = document.getElementById('oldPswCustomer');
+    const pswCustomer = document.getElementById('pswCustomer');
+    const psw2Customer = document.getElementById('psw2Customer');
+    const dateCustomer = document.getElementById('dateCustomer');
+
+
+    const nameCustomer_value = nameCustomer.value.trim();
+    const lastNameCustomer_value = lastNameCustomer.value.trim();
+    const oldPswCustomer_value = oldPswCustomer.value.trim();
+    const pswCustomer_value = pswCustomer.value.trim();
+    const psw2Customer_value = psw2Customer.value.trim();
+    const dateCustomer_value = dateCustomer.value.trim();
+
+    if (nameCustomer_value === "" || lastNameCustomer_value === "" || oldPswCustomer_value === "" ||
+        pswCustomer_value === "" || psw2Customer_value === "" || dateCustomer_value === "") {
+        setFormMessage(formAccount, "error", "Check all the fields");
+        return false;
+    }
+
+    if (pswCustomer_value == oldPsw) {
+        setFormMessage(formAccount, "error", 'You have not entered a new valid password');
+        return false;
+    }
+
+    if (pswCustomer_value != psw2Customer_value) {
+        setFormMessage(formAccount, "error", 'Passwords does not match');
+        return false;
+    }
+
+    if (oldPswCustomer_value != oldPsw) {
+        setFormMessage(formAccount, "error", 'Your current password is incorrect');
+        return false;
+    }
+
+    if (dateCustomer_value < 16) {
+        setFormMessage(formAccount, "error", 'You cannot use the service if you are under 16 y.o.');
+        return false;
+    }
+    setFormMessage(formAccount, "success", 'The update was successful');
+    //localStorage.setItem("logged_user", JSON.stringify(emailSeller_value));
+
+    return true;
+
+}
+
+function setFormMessage(formElement, type, message) {
+    console.log("siamo in setFormMessage")
+
+    //form element: può essere o loginForm o createAccountForm
+    const messageElement = formElement.querySelector(".formMsg");
+    //type: o messaggio di errore o di successo
+    //message: testo 
+    messageElement.textContent = message;
+    if (type === "error") {
+        messageElement.classList.remove("formMsg--success", "formMsg--error");
+        messageElement.classList.add('formMsg--error');
+    } else if (type === "success") {
+        messageElement.classList.remove("formMsg--error", "formMsg--success");
+        messageElement.classList.add('formMsg--success');
+    } else {
+        messageElement.classList.remove("formMsg--error", "formMsg--success");
+        messageElement.classList.add('formMsg--submit');
+    }
+}
+
+function commitChanges() {
+    const nameCustomer = document.getElementById('nameCustomer');
+    const lastNameCustomer = document.getElementById('lastNameCustomer');
+    const pswCustomer = document.getElementById('pswCustomer');
+    const dateCustomer = document.getElementById('dateCustomer');
+
+
+    const nameCustomer_value = nameCustomer.value.trim();
+    const lastNameCustomer_value = lastNameCustomer.value.trim();
+    const pswCustomer_value = pswCustomer.value.trim();
+    const dateCustomer_value = dateCustomer.value.trim();
+
+    jsonClientObj.forEach(user => {
+        if (user.email.trim() == loggedUserEmailObj) {
+            user.name = nameCustomer_value
+            console.log(user.name)
+            console.log(nameCustomer_value)
+            user.lastName = lastNameCustomer_value
+            user.age = dateCustomer_value
+            updateLocalStorage();
+        }
+    })
+
+    jsonObj.forEach(user => {
+        if (user.email.trim() == loggedUserEmailObj) {
+            user.password = pswCustomer_value
+        }
+    });
+    updateLocalStorage();
+}
+
+
+
+document.getElementById("client_changes").addEventListener("submit", event => {
+    event.preventDefault();
+    console.log("submit")
+    if (checkInputClient() == true) {
+        commitChanges();
+    }
 })

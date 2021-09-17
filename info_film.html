@@ -35,36 +35,50 @@
         </div>
     </nav>
 
-    <div class="vh-100 vw-100" id = "container-info">
-        <div class="container">
-            <br>
-            <h1 class = "title-movie">Titolo Film</h1>
-            <br>
-            <div class="container container-info" >
-                <div class="row g-2">
-                  <div class="col-6">
-                    <div class="p-3 border bg-light box-movie">Rating</div>
-                  </div>
-                  <div class="col-6">
-                    <div class="p-3 border bg-light box-movie genre">Genre</div>
-                  </div>
-                  <div class="col-6">
-                    <div class="p-3 border bg-light box-movie">
-                        <img src="https://images.unsplash.com/photo-1538152911114-73f1aa6d6128?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80" alt="Movie's Photo" width="500" height="600">
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="p-3 border bg-light box-movie">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum quia ad saepe quis! Sit corrupti officia nemo delectus ea harum ratione natus deleniti, possimus dicta dignissimos tenetur odio molestias dolores.</div>
-                  </div>
-                </div>
-              </div>
-        </div>
+    <!--W2SCHOOL - finestra laterale VIDEO -->
+    <div id="nav_buy_film" class="overlay">
+        <!-- Button to close the overlay navigation -->
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav_buy_film()">&times;</a>
+        <!-- Overlay content -->
+        <div class="overlay-content" id="content-buy-film"> </div>
     </div>
 
-    <ul id="users"></ul>
+    <div class="vh-100 vw-100" id="container-info">
+        <div class="container">
+            <br>
+            <h1 class="title-movie">Titolo Film</h1>
+            <br>
+            <div class="container container-info">
+                <div class="row g-2">
+                    <div class="col-6">
+                        <div class="p-3 border bg-light box-movie">Rating</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 border bg-light box-movie genre">Genre</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 border bg-light box-movie">
+                            <img src="https://images.unsplash.com/photo-1538152911114-73f1aa6d6128?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80" alt="Movie's Photo" width="500" height="600">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 border bg-light box-movie">
+                            <div class="p-3 border bg-light box-movie"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g">
+                    <div class="col">
+                        <div class="p-3 border bg-light box-movie" id="catalogue_all_seller"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js " integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM " crossorigin="anonymous "></script>
-    <script src="info.js"></script>
+        <ul id="users"></ul>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js " integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM " crossorigin="anonymous "></script>
+        <script src="info.js"></script>
 
 
 </body>
