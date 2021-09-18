@@ -16,14 +16,12 @@ function client_cards() {
     json_users.forEach(user => {
         if (user.email == loggedEmail) {
             var clientCards = user.cards
-            console.log(clientCards)
             if (clientCards.length == 0) {
                 zero_cards.innerHTML =
                     `In order to purchase the film, you need to add a card
                 `
             } else {
                 clientCards.forEach(card => {
-                    console.log("ha più carte")
                     const div_card = document.createElement('div');
                     div_card.innerHTML = `
                         <b>Card number:</b> ${card.ccnum} &nbsp;<b>Full Name:</b> ${card.cname} &nbsp; <button class = "use-card" id ="${card.ccnum}">Use this card</button><br>
@@ -31,8 +29,6 @@ function client_cards() {
                     list_cards.appendChild(div_card);
                     document.getElementById(card.ccnum).addEventListener("click", () => {
                         countClick++;
-                        console.log(countClick)
-                        console.log("click")
                         create_cart(countClick, card.ccnum);
                         check_toggle_card(card.ccnum);
                     })
@@ -42,7 +38,6 @@ function client_cards() {
     });
 
     document.getElementById('new_card').addEventListener("click", () => {
-        console.log("click")
         openNav_client();
     })
 }
@@ -92,7 +87,6 @@ function openNav_client() {
 
 document.getElementById("form_new_card").addEventListener("submit", event => {
     event.preventDefault();
-    console.log("submit")
     if (check_new_card() == true) {
         commitChanges();
         setTimeout(function() {
@@ -120,11 +114,8 @@ function check_new_card() {
     users.forEach(u => {
         if (u.email.trim() == loggedEmail) {
             var cards = u.cards
-            console.log(cards)
             cards.forEach(c => {
-                console.log(c)
                 if (ccnum_value == c.ccnum) {
-                    console.log("trovata carta")
                     find_card = true;
                 }
             });
@@ -137,8 +128,6 @@ function check_new_card() {
     }
 
     var today = new Date()
-    console.log(today.getFullYear())
-    console.log(today.getFullYear())
 
     if (cname_value === "" || ccnum_value === "" || expmonth_value === "" ||
         expyear_value === "" || cvv_value === "") {
@@ -201,10 +190,8 @@ function commitChanges() {
 
 function setFormMessage(formElement, type, message) {
 
-    //form element: può essere o loginForm o createAccountForm
     const messageElement = formElement.querySelector(".formMsg");
-    //type: o messaggio di errore o di successo
-    //message: testo 
+
     messageElement.textContent = message;
     if (type === "error") {
         messageElement.classList.remove("formMsg--success", "formMsg--error");
@@ -223,11 +210,9 @@ function create_cart(count, numCard) {
     json_users.forEach(user => {
         if (user.email.trim() == loggedEmail) {
             if (count == 1) {
-                console.log("dentro set last movie bought")
                 var lastMovieBought = user.bought_movies.pop();
                 localStorage.setItem("last_movie_bought", JSON.stringify(lastMovieBought))
             }
-            console.log(lastMovieBought)
             const lastBought = JSON.parse(localStorage.getItem("last_movie_bought"))
             products.innerHTML = `
             <div>
@@ -260,8 +245,8 @@ function create_cart(count, numCard) {
 }
 
 function check_toggle_card(num) {
-    const tags = document.querySelectorAll('.use-card'); //ritorna l'array con ogni tag
-    tags.forEach(tag => { //elimina il tag colorato se ci riclicco
+    const tags = document.querySelectorAll('.use-card');
+    tags.forEach(tag => {
         tag.classList.remove('useThisCard')
     })
 
@@ -270,7 +255,6 @@ function check_toggle_card(num) {
 }
 
 function pay_success(lastBought) {
-    console.log(lastBought)
 
     var t = new Date();
 
@@ -289,22 +273,15 @@ function pay_success(lastBought) {
     last_film_bought['buying'] = lastBought.buying;
     last_film_bought['id'] = lastBought.id
 
-    console.log(last_client);
-    console.log(last_film_bought);
-
     json_users.forEach(user => {
         if (user.email.trim() == loggedEmail) {
             user.purchase_history.push(last_film_bought)
-            console.log(user.purchase_history)
+
 
         }
 
         if (user.email.trim() == lastBought.email_seller) {
-            console.log(user.statistics)
-            console.log(user.email)
             user.statistics.push(last_client)
-            console.log(user.statistics)
-
         }
     })
     localStorage.setItem("json_users", JSON.stringify(json_users))

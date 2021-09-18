@@ -24,7 +24,6 @@ const inputAddress2Seller = document.getElementById('inputAddress2Seller');
 const inputStateSeller = document.getElementById('inputStateSeller');
 const inputZipSeller = document.getElementById('inputZipSeller');
 
-//JSON DEGLI UTENTI GIA' LOGGATI
 var json_users = [{
     "email": "mario.rossi@gmail.com",
     "password": "mario123",
@@ -91,12 +90,8 @@ function clearInput(inputElement) {
 }
 
 function setFormMessage(formElement, type, message) {
-    console.log("siamo in setFormMessage")
 
-    //form element: può essere o loginForm o createAccountForm
     const messageElement = formElement.querySelector(".formMsg");
-    //type: o messaggio di errore o di successo
-    //message: testo 
     messageElement.textContent = message;
     if (type === "error") {
         messageElement.classList.remove("formMsg--success", "formMsg--error");
@@ -110,14 +105,12 @@ function setFormMessage(formElement, type, message) {
     }
 }
 
-//quando il doc è pronto per lavorare, viene avviata questa funzione
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.querySelector("#login");
     const chooseUser = document.querySelector("#chooseUser");
     const createAccountForm_customer = document.querySelector("#createAccount_customer");
     const createAccountForm_seller = document.querySelector("#createAccount_seller");
 
-    //quando clicchi sul link per creare l'account: la login si nascone e viene mostrata la finestra per scegliere il tipo di utente
     document.querySelector("#linkCreateAccount").addEventListener("click", event => {
         event.preventDefault(); //previene di tornare sulla pagina in cui siamo già
         loginForm.classList.add("form--hidden");
@@ -126,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
         chooseUser.classList.remove("form--hidden");
     })
 
-    //quando clicchi sul link per login 
+
     document.querySelector("#linkLogin").addEventListener("click", event => {
         event.preventDefault();
         createAccountForm_seller.classList.add("form--hidden");
@@ -135,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
         loginForm.classList.remove("form--hidden");
     });
 
-    //quando clicchi sul link per login 
+
     document.querySelector("#linkLogin2").addEventListener("click", event => {
         event.preventDefault();
         createAccountForm_seller.classList.add("form--hidden");
@@ -144,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
         loginForm.classList.remove("form--hidden");
     });
 
-    //quando clicchi sul link per creare account seller
+
     document.querySelector("#linkCreateAccount_seller").addEventListener("click", event => {
         event.preventDefault();
         createAccountForm_customer.classList.add("form--hidden");
@@ -153,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
         createAccountForm_seller.classList.remove("form--hidden");
     });
 
-    //quando clicchi sul link per creare account customer
+
     document.querySelector("#linkCreateAccount_customer").addEventListener("click", event => {
         event.preventDefault();
         createAccountForm_customer.classList.remove("form--hidden");
@@ -165,11 +158,8 @@ document.addEventListener("DOMContentLoaded", () => {
     loginForm.addEventListener("submit", event => {
         event.preventDefault();
         if (checkInputsLogin() == true) {
-            //console.log("siamo in checkInputLogin == true");
             checkUser();
         }
-        // setFormMessage(createAccountForm_seller, "submit", "submit");
-        // setFormMessage(createAccountForm_customer, "submit", "submit");
     })
 
     createAccountForm_seller.addEventListener("submit", event => {
@@ -180,22 +170,17 @@ document.addEventListener("DOMContentLoaded", () => {
             addUserLogin(emailSeller.value.trim(), pswSeller.value.trim(), filmPrice, shopSeller.value.trim(), "seller");
             addUserSeller();
         }
-        // setFormMessage(loginForm, "submit", "submit");
     })
 
     createAccountForm_customer.addEventListener("submit", event => {
         event.preventDefault();
         var filmPrice = 0;
         if (checkInputsCreateAccountCustomer() == true) {
-            addUserLogin(emailCustomer.value.trim(), pswCustomer.value.trim(), filmPrice, "customer");
+            addUserLogin(emailCustomer.value.trim(), pswCustomer.value.trim(), filmPrice, '', "customer");
             addUserCustomer();
         }
-        // setFormMessage(loginForm, "submit", "submit");
     })
 
-
-    //selezione gli elementi della classe formInput, e per ognuno ...
-    //... controlla se sono stati compilati i campi
     document.querySelectorAll(".formInput").forEach(inputElement => {
 
         inputElement.addEventListener("blur", e => {
@@ -384,7 +369,7 @@ function checkInputsCreateAccountSeller() {
     }
 
     if (pswSeller_value.length < 5) {
-        setFormMessage(createAccountForm_seller, "error", 'the password is too short');
+        setFormMessage(createAccountForm_seller, "error", 'The password is too short');
         return false;
     }
 
@@ -401,7 +386,7 @@ function checkInputsCreateAccountSeller() {
     //--
 
     if (pswSeller_value != psw2Seller_value) {
-        setFormMessage(createAccountForm_seller, "error", 'Passwords does not match');
+        setFormMessage(createAccountForm_seller, "error", 'Passwords do not match');
         return false;
     }
 
@@ -445,7 +430,7 @@ function checkInputsCreateAccountCustomer() {
     }
 
     if (pswCustomer_value.length < 5) {
-        setFormMessage(createAccountForm_customer, "error", 'the password is too short');
+        setFormMessage(createAccountForm_customer, "error", 'The password is too short');
         return false;
     }
 
@@ -462,7 +447,7 @@ function checkInputsCreateAccountCustomer() {
     //--
 
     if (pswCustomer_value != psw2Customer_value) {
-        setFormMessage(createAccountForm_customer, "error", 'Passwords does not match');
+        setFormMessage(createAccountForm_customer, "error", 'Passwords do not match');
         return false;
     }
 
@@ -507,10 +492,7 @@ function initLocalStorage() {
 }
 
 function findEmailMatch(email) {
-    //prende l'elemento dallo storage
     var jsonObjAsString = localStorage.getItem("json_users");
-
-    //lo ritraduce in object --> più semplici i controlli
     const jsonObj = JSON.parse(jsonObjAsString)
 
     for (var i = 0; i < jsonObj.length; i++) {
@@ -523,9 +505,6 @@ function findEmailMatch(email) {
 }
 
 function findPwdMatch(pwd, obj) {
-    console.log(pwd);
-    console.log(obj);
-    console.log(obj.pwd);
     if (obj.password == pwd) {
         setFormMessage(loginForm, "success", 'The login was successful, redirect in 3 second');
         localStorage.setItem("logged_user_email", JSON.stringify(obj.email));
@@ -543,9 +522,7 @@ function findPwdMatch(pwd, obj) {
 }
 
 function findRole(role) {
-    //prende l'elemento dallo storage
     var jsonObjAsString = localStorage.getItem("json_users");
-    //lo ritraduce in object --> più semplici i controlli
     const jsonObj = JSON.parse(jsonObjAsString)
 
     for (var i = 0; i < jsonObj.length; i++) {
@@ -559,7 +536,6 @@ function findRole(role) {
 function addUserLogin(email, pwd, filmPrice, shopName, role) {
     var users_string = localStorage.getItem("json_users");
     var users = JSON.parse(users_string);
-    console.log(users)
 
     var obj = {}
     obj['email'] = email;

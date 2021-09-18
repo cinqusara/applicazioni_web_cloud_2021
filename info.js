@@ -118,12 +118,9 @@ function get_credits(status, credits) {
         }
     });
     localStorage.setItem("director", JSON.stringify(director));
-    //console.log(localStorage.getItem("director"))
 }
 
 function page_film() {
-    //console.log(movie);
-    // console.log("info film: "+ title + " " + poster_path + " " + vote_average + " " + overview + " " + id);
     const pageInfo = document.getElementById('container-info');
     pageInfo.innerHTML = `
     <div class="container rating">
@@ -182,12 +179,9 @@ function get_genre() {
     var count = 0;
     genre.forEach(element => {
         const { id, name } = element;
-        //console.log(id, name);
-        //console.log(genre_ids)
         genre_ids.forEach(e => {
             count++;
             if (id == e && count != genre_ids.length) {
-                //console.log(e + " " + id)
                 results += name + " ";
             }
         });
@@ -202,13 +196,10 @@ function get_all_movies(title) {
     const catalogue_all_seller = document.getElementById("catalogue_all_seller");
     catalogue_all_seller.innerHTML = "<h3>Price</h3>";
     in_catalogue = false;
-    //console.log(catalogue_all_seller)
-    //console.log(all_movies);
     all_movies.forEach(m => {
         const movie_on_catalogue = document.createElement('span');
         if (m.title == title) {
             in_catalogue = true
-            console.log(m)
             movie_on_catalogue.innerHTML = `
                      <span><b>Seller:</b> ${m.shop} <b id = "rentalPrice" >Rental Price:</b> ${m.price_rental} <b id = "sellingPrice">Selling Price:</b> ${m.price_selling}
                      </span> &nbsp
@@ -276,15 +267,12 @@ function closeNav_buy_film() {
 }
 
 function onClickImg(buying, price, email) {
-    console.log("click")
     var obj = {}
     obj['title'] = title;
     obj['id'] = id;
     obj['buying'] = buying;
     obj['price'] = price;
     obj['email_seller'] = email;
-
-    console.log(obj)
 
     var users = JSON.parse(localStorage.getItem('json_users'));
 

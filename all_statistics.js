@@ -8,9 +8,7 @@ boxStatistics.innerHTML = ` `
 jsonObj.forEach(user => {
     if (user.email.trim() == loggedUserEmailObj) {
         allStat = user.statistics;
-        console.log(user.statistics)
         const reversStat = reverseArray(allStat);
-        console.log(reversStat)
         for (var i = 0; i < reversStat.length; i++) {
             const boxStat = document.createElement('div');
             boxStat.innerHTML = ` 

@@ -806,15 +806,3 @@ main {
     background-color: var(--color-primary-dark);
     color: white;
 }
-
-
-/*PURCHASE_CLIENT*/
-
-#img-purchase {
-    background: url('imgRullino.jpg');
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    -moz-background-size: cover;
-    -webkit-background-size: cover;
-    background-size: cover;
-}

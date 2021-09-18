@@ -8,9 +8,7 @@ boxStatistics.innerHTML = ` `
 jsonObj.forEach(user => {
     if (user.email.trim() == loggedUserEmailObj) {
         allStat = user.purchase_history;
-        console.log(user.purchase_history)
         const reversStat = reverseArray(allStat);
-        console.log(reversStat)
         for (var i = 0; i < reversStat.length; i++) {
             const boxStat = document.createElement('div');
             boxStat.innerHTML = ` 
@@ -48,15 +46,11 @@ function get_button_video(dayPurchase, methods) {
     var today = data.getTime();
 
     var films_deadline = dayPurchase + threeDays
-    console.log(films_deadline)
 
     if (methods == 'rental') {
         if (today > films_deadline) {
-            console.log("maggiore")
             var btn = document.getElementById("btn-watch-now");
             btn.disabled = true;
-        } else {
-            console.log("minore")
         }
     }
 }

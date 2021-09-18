@@ -19,7 +19,6 @@ get_info();
 function get_info() {
     jsonSellerObj.forEach(user => {
         if (user.email.trim() == loggedUserEmailObj) {
-            console.log(user)
             infoAccount.innerHTML = `
                     <h3>General Informations</h3>
                     <b id="name-seller">Name: </b> ${user.shopName} <br>
@@ -39,7 +38,6 @@ function get_info() {
             `
 
             var films = get_film()
-            console.log(films)
             boxFilms.innerHTML = ''
 
             films.forEach(f => {
@@ -55,9 +53,7 @@ function get_info() {
             jsonObj.forEach(user => {
                 if (user.email.trim() == loggedUserEmailObj) {
                     allStat = user.statistics;
-                    console.log(user.statistics)
                     const reversStat = reverseArray(allStat);
-                    console.log(reversStat)
                     for (var i = 0; i < 4 && i < reversStat.length; i++) {
                         const boxStat = document.createElement('div');
                         boxStat.innerHTML = ` 
@@ -86,6 +82,7 @@ function openNav() {
     jsonSellerObj.forEach(user => {
         if (user.email.trim() == loggedUserEmailObj) {
             formAccount.innerHTML = `
+            <br>
                     <div class="formMsg formMsg--error"></div>
                     <div class="mb-3 formInput-group form-account-changes">
                         <label for="exampleName" class="form-label">Name</label>
@@ -182,7 +179,6 @@ function checkInputstSeller() {
     jsonObj.forEach(user => {
         if (user.email == loggedUserEmailObj) {
             oldPsw = user.password
-            console.log(oldPsw)
         }
     });
 
@@ -232,8 +228,6 @@ function checkInputstSeller() {
 
     if (oldPswSeller_value != oldPsw) {
         setFormMessage(sellerChanges, "error", 'Your current password is incorrect');
-        console.log(oldPsw)
-        console.log(oldPswSeller_value)
         return false;
     }
 
@@ -247,19 +241,15 @@ function checkInputstSeller() {
         return false;
     }
     setFormMessage(sellerChanges, "success", 'The update was successful');
-    //localStorage.setItem("logged_user", JSON.stringify(emailSeller_value));
 
     return true;
 
 }
 
 function setFormMessage(formElement, type, message) {
-    console.log("siamo in setFormMessage")
 
-    //form element: può essere o loginForm o createAccountForm
     const messageElement = formElement.querySelector(".formMsg");
-    //type: o messaggio di errore o di successo
-    //message: testo 
+
     messageElement.textContent = message;
     if (type === "error") {
         messageElement.classList.remove("formMsg--success", "formMsg--error");
@@ -326,7 +316,6 @@ function commitChanges() {
 
 document.getElementById("seller_changes").addEventListener("submit", event => {
     event.preventDefault();
-    console.log("submit")
     if (checkInputstSeller() == true) {
         commitChanges();
     }
@@ -342,12 +331,9 @@ function get_film() {
     jsonObj.forEach(user => {
         if (user.email.trim() == loggedUserEmailObj) {
             shopFilm = user.shop;
-            console.log(user.shop)
             if (user.shop != undefined) {
                 shopFilm.forEach(f => {
-                    console.log(f.title)
                     films.push(f.title)
-                    console.log(typeof films)
                 });
             }
         }
@@ -361,7 +347,6 @@ function get_statistics() {
     jsonObj.forEach(user => {
         if (user.email.trim() == loggedUserEmailObj) {
             allStat = user.statistics;
-            console.log(user.statistics)
             if (user.statistics != undefined) {
                 return allStat
             }
@@ -379,9 +364,15 @@ function reverseArray(arr) {
 }
 
 document.getElementById("sumbitDeleteAccount").addEventListener("click", () => {
-    console.log('delete');
     setFormMessage(formAccount, "error", 'Your account is about to be deleted');
     detele_account();
+    setTimeout(function() {
+        window.location.href = 'home2.html';
+    }, 3000);
+})
+
+document.getElementById("logOutAccount").addEventListener("click", () => {
+    setFormMessage(formAccount, "error", 'You will be logged out');
     setTimeout(function() {
         window.location.href = 'home2.html';
     }, 3000);
@@ -394,14 +385,12 @@ function detele_account() {
     jsonObj.forEach(user => {
         if (user.email != loggedUserEmailObj) {
             list_users.push(user);
-            console.log(list_users)
         }
     })
 
     jsonSellerObj.forEach(user => {
         if (user.email != loggedUserEmailObj) {
             list_seller.push(user);
-            console.log(list_seller)
         }
     })
 

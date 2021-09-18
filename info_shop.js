@@ -106,7 +106,6 @@ function get_url(url, callback) {
     xhr.responseType = 'json';
     xhr.onload = function() {
         var status = xhr.status;
-        //console.log(xhr.response);
         callback(status, xhr.response.crew);
     }
     xhr.send();
@@ -120,12 +119,9 @@ function get_credits(status, credits) {
         }
     });
     localStorage.setItem("director", JSON.stringify(director));
-    //console.log(localStorage.getItem("director"))
 }
 
 function page_film() {
-    //console.log(movie);
-    // console.log("info film: "+ title + " " + poster_path + " " + vote_average + " " + overview + " " + id);
     const pageInfo = document.getElementById('container-info');
     pageInfo.innerHTML = `
     <div class="container rating">
@@ -181,12 +177,10 @@ function get_color(vote) {
 
 
 function get_constantPrice() {
-    console.log("in get_price")
     var constantPrice = 0;
     jsonObj.forEach(user => {
         if (user.email == loggedUserEmailObj) {
             constantPrice = user.film_price;
-            console.log(constantPrice)
         }
     })
     return constantPrice
@@ -194,7 +188,6 @@ function get_constantPrice() {
 
 function get_price_selling() {
     const constantPrice = get_constantPrice();
-    //console.log(constantPrice)
     var priceFilm = movie.vote_average * constantPrice * 1.5
     priceFilm = priceFilm.toFixed(1);
     return priceFilm;
@@ -202,7 +195,6 @@ function get_price_selling() {
 
 function get_price_rental() {
     const constantPrice = get_constantPrice();
-    //console.log(constantPrice)
     var priceFilm = movie.vote_average * constantPrice
     priceFilm = priceFilm.toFixed(1);
     return priceFilm;
@@ -215,12 +207,9 @@ function get_genre() {
     var count = 0;
     genre.forEach(element => {
         const { id, name } = element;
-        //console.log(id, name);
-        //console.log(genre_ids)
         genre_ids.forEach(e => {
             count++;
             if (id == e && count != genre_ids.length) {
-                //console.log(e + " " + id)
                 results += name + " ";
             }
         });

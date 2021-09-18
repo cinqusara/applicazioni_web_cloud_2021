@@ -1,5 +1,3 @@
-/*JS PER LA PAGINA CHOOSE_FILM - API OF TMDB*/
-
 const API_KEY = 'api_key=627ed135a25c4ee59e036330690af646';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const API_URL_POP = BASE_URL + '/discover/movie?sort_by=popularity.desc&' + API_KEY;
@@ -20,8 +18,6 @@ var loggedUserEmailObj = JSON.parse(loggedUserEmail);
 var jsonObjAsString = localStorage.getItem("json_users");
 var jsonObj = JSON.parse(jsonObjAsString);
 
-
-
 get_url(API_URL_POP, show_movie);
 
 function get_url(url, callback) {
@@ -30,17 +26,14 @@ function get_url(url, callback) {
     xhr.responseType = 'json';
     xhr.onload = function() {
         var status = xhr.status;
-        //console.log(xhr.response);
         callback(status, xhr.response.results);
     }
     xhr.send();
 };
 
 function show_movie(status, data) {
-    /*   console.log(data.length) */
     main.innerHTML = '';
     if (data.length == 0) {
-        console.log("no result")
         main.innerHTML = `
         <h2 class = "noFilm">No Results</h2>
         `
@@ -51,8 +44,6 @@ function show_movie(status, data) {
             if (poster_path == null) {
                 img = "https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1040&q=80"
             }
-            //console.log(movie);
-            /*   console.log(IMG_URL + poster_path); */
             const movieEl = document.createElement('div');
             movieEl.classList.add('movie-container');
 
@@ -67,20 +58,18 @@ function show_movie(status, data) {
                                 <h3>Overview</h3>
                                 ${overview}
                                 <br>
-                                <button class = "know-more" id = "${id}">Know More</button>
+                                <button class = "know-more" id = "${id}">Info</button>
                                 <button class="btn btn-heart" id = "${poster_path}"><i class="bi bi-shop"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shop" viewBox="0 0 16 16">
                                 <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z"/>
                               </svg></i></button> 
                                 </div>
                             `
-            main.appendChild(movieEl); //aggiunge l'elemento al DOM
+            main.appendChild(movieEl);
 
-            //quando clicchiamo sul pulsante "know more", intercetta l'evento e l'id del film
             document.getElementById(id).addEventListener("click", () => {
                 openNav(movie);
             })
 
-            //gli passo il poster path perchè è l'unico dato univico oltre l'id
             document.getElementById(poster_path).addEventListener("click", () => {
                 add_to_catalogue(movie);
 
@@ -90,11 +79,9 @@ function show_movie(status, data) {
 }
 
 function get_video(stauts, videoData) {
-    //console.log(videoData)
     if (videoData) {
         document.getElementById("nav_shop").style.width = "100%";
         if (videoData.length > 0) {
-            // console.log(videoData.length);
             var embed = [];
             var info = [];
             videoData.forEach(video => {
@@ -117,7 +104,6 @@ function get_video(stauts, videoData) {
             <br>
             ${info.join('')}
             `
-                //embed.join('') aggiunge l'HTML di embed.push nell'overlay-content
             overlayContent.innerHTML = content;
             activeVideo = 0;
             show_videos();
@@ -130,11 +116,9 @@ function get_video(stauts, videoData) {
     }
 }
 
-//nav dei video
 function openNav(movie) {
     const id = movie.id;
-    //quando apro 'know more' di un film gli passo l'id e prendo i video
-    const VIDEO_URL = BASE_URL + '/movie/' + id + '/videos?' + API_KEY; //BASE_URL + '/movie/' + id -> dalla doc per prendere un video con le API
+    const VIDEO_URL = BASE_URL + '/movie/' + id + '/videos?' + API_KEY;
     localStorage.setItem("movie_info", JSON.stringify(movie));
     get_url(VIDEO_URL, get_video);
 }
@@ -143,15 +127,12 @@ function closeNav() {
     document.getElementById("nav_shop").style.width = "0%";
 }
 
-//nav dei preferiti
 function openNav_shop() {
-    console.log("click")
     get_film();
     document.getElementById("shop-nav").style.width = "100%";
     boxContentShop.innerHTML = '';
     var movies = localStorage.getItem("shop_seller");
     var objMovies = JSON.parse(movies)
-        //console.log(objFavorites)
     if (objMovies.length > 0) {
         objMovies.forEach(film => {
             const { title, id } = film;
@@ -175,13 +156,13 @@ function closeNav_shop() {
     document.getElementById("shop-nav").style.width = "0%";
 }
 
-var activeVideo = 0; //video sempre attivo
+var activeVideo = 0;
 var totVideo = 0;
 
 function show_videos() {
-    const embedClasses = document.querySelectorAll('.embed'); //ritorna una node list, simile ad un array
+    const embedClasses = document.querySelectorAll('.embed');
     totVideo = embedClasses.length;
-    embedClasses.forEach((embedTag, index) => { //itera per video e per numero (se ho 3 video, prima mostrerà lo 0-esimo etc.)
+    embedClasses.forEach((embedTag, index) => {
         if (activeVideo == index) {
             embedTag.classList.add('show');
             embedTag.classList.remove('hide');
@@ -203,7 +184,6 @@ function getColor(vote) {
 }
 
 function add_to_catalogue(movie) {
-    //console.log(movie)
     const { id, title, vote_average } = movie;
 
     var found = false;
@@ -220,13 +200,11 @@ function add_to_catalogue(movie) {
             film['price_selling'] = get_price_selling(user.film_price, vote_average);
             film['shop'] = user.shopName
             film['price_rental'] = get_price_rental(user.film_price, vote_average);
-            /*  console.log(film) */
 
             var shop = user.shop;
 
             shop.forEach(film => {
                 if (film.id == id) {
-                    //console.log("dentro la coppia");
                     found = true;
                 }
             });
@@ -234,7 +212,6 @@ function add_to_catalogue(movie) {
             if (found == false) {
                 user.shop.push(obj);
                 var movies = JSON.parse(localStorage.getItem("json_all_movies"));
-                /*  console.log(movies); */
                 movies.push(film);
                 localStorage.setItem("json_all_movies", JSON.stringify(movies));
                 check_toggle(movie.poster_path, true);
@@ -256,13 +233,9 @@ function get_film() {
 }
 
 function remove_film(shop, movie, all_movies, email) {
-    console.log("remove")
-    console.log(all_movies)
-    console.log(email)
     const s = shop.filter(film => film.id !== movie.id);
     const m = all_movies.filter(film => (film.id !== movie.id || film.email !== email))
 
-    console.log(m)
     jsonObj.forEach(user => {
         if (user.email == loggedUserEmailObj) {
             user.shop = s
@@ -280,10 +253,7 @@ function updateLocalStorage() {
 }
 
 function check_toggle(poster, addFilm) {
-    /* console.log("dentro a check_toggle") */
     var toToggle = document.getElementById(poster)
-        /*  console.log(toToggle)
-         console.log(poster) */
     if (addFilm == true) {
         toToggle.classList.remove("btn-heart");
         toToggle.classList.add("btn-heart-toggle")
@@ -293,10 +263,6 @@ function check_toggle(poster, addFilm) {
     }
 }
 
-function show_img(status, img) {
-    console.log("img")
-    console.log(status)
-}
 
 form.addEventListener('submit', e => {
     e.preventDefault();

@@ -120,10 +120,8 @@ function get_url(url, callback) {
 };
 
 function show_movie(status, data) {
-    console.log(data.length)
     main.innerHTML = '';
     if (data.length == 0) {
-        console.log("no result")
         main.innerHTML = `
         <h2 class = "noFilm">No Results</h2>
         `
@@ -131,11 +129,16 @@ function show_movie(status, data) {
         data.forEach(movie => {
             const { title, poster_path, vote_average, overview, id } = movie;
             var img = IMG_URL + poster_path
+            var overview_sliced = "";
+            if (overview.length < 300) {
+                overview_sliced = overview
+            } else {
+                overview_sliced = overview.slice(0, 300)
+            }
+
             if (poster_path == null) {
                 img = "https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1040&q=80"
             }
-            //console.log(movie);
-            //console.log(IMG_URL + poster_path);
             const movieEl = document.createElement('div');
             movieEl.classList.add('movie-container');
 
@@ -148,20 +151,22 @@ function show_movie(status, data) {
 
                                 <div class="overview">
                                 <h3>Overview</h3>
-                                ${overview}
+                                ${overview_sliced}
                                 <br>
-                                <button class = "know-more" id = "${id}">Know More</button>
+                                <button class = "know-more" id = "${id}"><i class="bi bi-cart-fill"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
+                                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                              </svg></i></button>
                                 <button class="btn btn-heart" id = "${poster_path}"><i class="fa fa-heart"></i></button> 
                                 </div>
                             `
-            main.appendChild(movieEl); //aggiunge l'elemento al DOM
+            main.appendChild(movieEl);
 
-            //quando clicchiamo sul pulsante "know more", intercetta l'evento e l'id del film
+
             document.getElementById(id).addEventListener("click", () => {
                 openNav(movie);
             })
 
-            //gli passo il poster path perchè è l'unico dato univico oltre l'id
+
             document.getElementById(poster_path).addEventListener("click", () => {
                 set_favorites(movie);
             })
@@ -170,11 +175,10 @@ function show_movie(status, data) {
 }
 
 function get_video(stauts, videoData) {
-    //console.log(videoData)
+
     if (videoData) {
         document.getElementById("myNav").style.width = "100%";
         if (videoData.length > 0) {
-            // console.log(videoData.length);
             var embed = [];
             var info = [];
             videoData.forEach(video => {
@@ -188,7 +192,9 @@ function get_video(stauts, videoData) {
                     `)
                 }
             })
-            info.push(`<button class = "know-more" id = "info">Info</button>`)
+            info.push(`<button class = "know-more" id = "info"><i class="bi bi-cart-fill"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
+            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+          </svg></i></button>`)
             var content = `
             <p><h1 class = "no-results">Video</h1></p>
             <br>
@@ -197,7 +203,6 @@ function get_video(stauts, videoData) {
             <br>
             ${info.join('')}
             `
-                //embed.join('') aggiunge l'HTML di embed.push nell'overlay-content
             overlayContent.innerHTML = content;
             activeVideo = 0;
             show_videos();
@@ -242,10 +247,6 @@ function openNav_favorite() {
                     <br><br>
                     `
             boxContentFavorite.appendChild(favoriteContent);
-
-            // document.getElementById(id).addEventListener("click", () => {
-            //     window.location.href = "info_film.html";
-            // })
         });
     }
 }
@@ -254,13 +255,13 @@ function closeNav_favorite() {
     document.getElementById("favorite-nav").style.width = "0%";
 }
 
-var activeVideo = 0; //video sempre attivo
+var activeVideo = 0;
 var totVideo = 0;
 
 function show_videos() {
-    const embedClasses = document.querySelectorAll('.embed'); //ritorna una node list, simile ad un array
+    const embedClasses = document.querySelectorAll('.embed');
     totVideo = embedClasses.length;
-    embedClasses.forEach((embedTag, index) => { //itera per video e per numero (se ho 3 video, prima mostrerà lo 0-esimo etc.)
+    embedClasses.forEach((embedTag, index) => {
         if (activeVideo == index) {
             embedTag.classList.add('show');
             embedTag.classList.remove('hide');
@@ -282,7 +283,6 @@ function getColor(vote) {
 }
 
 function set_favorites(movie) {
-    //console.log(movie)
     const { id, title } = movie;
     var found = false;
     var obj = {}
@@ -291,11 +291,8 @@ function set_favorites(movie) {
     jsonObj.forEach(user => {
         if (user.email == loggedUserEmailObj) {
             var favorites = user.favorite;
-            //console.log(favorites)
             favorites.forEach(fav => {
-                // console.log(user.favorite)
                 if (fav.id == id) {
-                    console.log("dentro la coppia");
                     found = true;
                 }
             });
@@ -313,7 +310,6 @@ function set_favorites(movie) {
 function get_favorite() {
     jsonObj.forEach(user => {
         if (user.email == loggedUserEmailObj) {
-            //console.log(typeof JSON.stringify(user.favorites))
             localStorage.setItem("user_favorites", JSON.stringify(user.favorite))
         }
     });
@@ -337,10 +333,7 @@ function updateLocalStorage() {
 
 
 function check_toggle(poster, addFav) {
-    console.log("dentro a check_toggle")
     var toToggle = document.getElementById(poster)
-    console.log(toToggle)
-    console.log(poster)
     if (addFav == true) {
         toToggle.classList.remove("btn-heart");
         toToggle.classList.add("btn-heart-toggle")
@@ -373,7 +366,6 @@ function set_genre() {
                     selectGenre.push(genre.id)
                 }
             }
-            console.log(selectGenre)
             get_url(API_URL_POP + '&with_genres=' + encodeURI(selectGenre.join(',')), show_movie) //separa tutti gli elementi di selectGenre con una ,
             show_genre();
         })
@@ -439,6 +431,7 @@ function openNav_client() {
         if (user.email == loggedUserEmailObj) {
 
             formAccount.innerHTML = `
+            <br>
             <div class="formMsg formMsg--error"></div>
             <div class="mb-3 formInput-group">
                 <label for="exampleName" class="form-label">Name</label>
@@ -492,9 +485,15 @@ document.getElementById("btn-settings-client").addEventListener("click", () => {
 })
 
 document.getElementById("sumbitDeleteAccount").addEventListener("click", () => {
-    console.log('delete');
     setFormMessage(formAccount, "error", 'Your account is about to be deleted');
     detele_account();
+    setTimeout(function() {
+        window.location.href = 'home2.html';
+    }, 3000);
+})
+
+document.getElementById("logOutAccount").addEventListener("click", () => {
+    setFormMessage(formAccount, "error", 'You will be logged out');
     setTimeout(function() {
         window.location.href = 'home2.html';
     }, 3000);
@@ -505,7 +504,6 @@ function checkInputClient() {
     jsonObj.forEach(user => {
         if (user.email == loggedUserEmailObj) {
             oldPsw = user.password
-            console.log(oldPsw)
         }
     });
 
@@ -550,19 +548,13 @@ function checkInputClient() {
         return false;
     }
     setFormMessage(formAccount, "success", 'The update was successful');
-    //localStorage.setItem("logged_user", JSON.stringify(emailSeller_value));
 
     return true;
 
 }
 
 function setFormMessage(formElement, type, message) {
-    console.log("siamo in setFormMessage")
-
-    //form element: può essere o loginForm o createAccountForm
     const messageElement = formElement.querySelector(".formMsg");
-    //type: o messaggio di errore o di successo
-    //message: testo 
     messageElement.textContent = message;
     if (type === "error") {
         messageElement.classList.remove("formMsg--success", "formMsg--error");
@@ -591,8 +583,6 @@ function commitChanges() {
     jsonClientObj.forEach(user => {
         if (user.email.trim() == loggedUserEmailObj) {
             user.name = nameCustomer_value
-            console.log(user.name)
-            console.log(nameCustomer_value)
             user.lastName = lastNameCustomer_value
             user.age = dateCustomer_value
             updateLocalStorage();
@@ -607,11 +597,8 @@ function commitChanges() {
     updateLocalStorage();
 }
 
-
-
 document.getElementById("client_changes").addEventListener("submit", event => {
     event.preventDefault();
-    console.log("submit")
     if (checkInputClient() == true) {
         commitChanges();
     }
@@ -627,14 +614,12 @@ function detele_account() {
     jsonObj.forEach(user => {
         if (user.email != loggedUserEmailObj) {
             list_users.push(user);
-            console.log(list_users)
         }
     })
 
     jsonClientObj.forEach(user => {
         if (user.email != loggedUserEmailObj) {
             list_client.push(user);
-            console.log(list_client)
         }
     })
 
