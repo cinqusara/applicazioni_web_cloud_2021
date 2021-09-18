@@ -383,6 +383,11 @@ function checkInputsCreateAccountSeller() {
         return false;
     }
 
+    if (pswSeller_value.length < 5) {
+        setFormMessage(createAccountForm_seller, "error", 'the password is too short');
+        return false;
+    }
+
     //--
     var jsonObjAsString = localStorage.getItem("json_users");
     const jsonObj = JSON.parse(jsonObjAsString)
@@ -436,6 +441,11 @@ function checkInputsCreateAccountCustomer() {
 
     if (!isEmail(emailCustomer_value)) {
         setFormMessage(createAccountForm_customer, "error", 'Not a valid email');
+        return false;
+    }
+
+    if (pswCustomer_value.length < 5) {
+        setFormMessage(createAccountForm_customer, "error", 'the password is too short');
         return false;
     }
 

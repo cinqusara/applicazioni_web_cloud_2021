@@ -377,3 +377,34 @@ function reverseArray(arr) {
     }
     return newArr;
 }
+
+document.getElementById("sumbitDeleteAccount").addEventListener("click", () => {
+    console.log('delete');
+    setFormMessage(formAccount, "error", 'Your account is about to be deleted');
+    detele_account();
+    setTimeout(function() {
+        window.location.href = 'home2.html';
+    }, 3000);
+})
+
+
+function detele_account() {
+    var list_users = []
+    var list_seller = []
+    jsonObj.forEach(user => {
+        if (user.email != loggedUserEmailObj) {
+            list_users.push(user);
+            console.log(list_users)
+        }
+    })
+
+    jsonSellerObj.forEach(user => {
+        if (user.email != loggedUserEmailObj) {
+            list_seller.push(user);
+            console.log(list_seller)
+        }
+    })
+
+    localStorage.setItem("json_users", JSON.stringify(list_users));
+    localStorage.setItem("json_seller", JSON.stringify(list_seller));
+}

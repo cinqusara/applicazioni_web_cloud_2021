@@ -476,12 +476,11 @@ function openNav_client() {
                         <div class="formInput--errorMsg"> </div>
                     </div>
             <br>
-            <button type="submit" value="submit" id="sumbitChangesClient" class="btn btn-primary">Submit</button>
-            
+            <button type="submit" value="submit" id="sumbitChangesClient" class="btn btn-primary">Submit</button><br><br> 
             `
         }
-    })
 
+    })
 }
 
 function closeNav_client() {
@@ -492,10 +491,17 @@ document.getElementById("btn-settings-client").addEventListener("click", () => {
     openNav_client();
 })
 
+document.getElementById("sumbitDeleteAccount").addEventListener("click", () => {
+    console.log('delete');
+    setFormMessage(formAccount, "error", 'Your account is about to be deleted');
+    detele_account();
+    setTimeout(function() {
+        window.location.href = 'home2.html';
+    }, 3000);
+})
+
 function checkInputClient() {
-
     var oldPsw = '';
-
     jsonObj.forEach(user => {
         if (user.email == loggedUserEmailObj) {
             oldPsw = user.password
@@ -614,3 +620,24 @@ document.getElementById("client_changes").addEventListener("submit", event => {
 document.getElementById("btn-shop-client").addEventListener("click", () => {
     window.location.href = "purchase_client.html";
 })
+
+function detele_account() {
+    var list_users = []
+    var list_client = []
+    jsonObj.forEach(user => {
+        if (user.email != loggedUserEmailObj) {
+            list_users.push(user);
+            console.log(list_users)
+        }
+    })
+
+    jsonClientObj.forEach(user => {
+        if (user.email != loggedUserEmailObj) {
+            list_client.push(user);
+            console.log(list_client)
+        }
+    })
+
+    localStorage.setItem("json_users", JSON.stringify(list_users));
+    localStorage.setItem("json_customer", JSON.stringify(list_client));
+}
