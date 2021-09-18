@@ -610,3 +610,7 @@ document.getElementById("client_changes").addEventListener("submit", event => {
         commitChanges();
     }
 })
+
+document.getElementById("btn-shop-client").addEventListener("click", () => {
+    window.location.href = "purchase_client.html";
+})

@@ -468,6 +468,24 @@ main {
     margin: 5px;
 }
 
+#btn-shop-client {
+    background-color: #212529;
+    color: white;
+    font-weight: bold;
+    border-radius: 60px;
+    padding: 10px 20px;
+    margin: 5px;
+}
+
+#btn-shop-client:hover {
+    background-color: #212529;
+    color: var(--color-secondary-plus);
+    font-weight: bold;
+    border-radius: 60px;
+    padding: 10px 20px;
+    margin: 5px;
+}
+
 .overlay-content-favourite div {
     padding: 0.5rem 1rem;
     border-radius: 3px;
@@ -787,4 +805,16 @@ main {
 .pay_with_card:hover {
     background-color: var(--color-primary-dark);
     color: white;
+}
+
+
+/*PURCHASE_CLIENT*/
+
+#img-purchase {
+    background: url('imgRullino.jpg');
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
 }

@@ -272,7 +272,7 @@ function check_toggle_card(num) {
 function pay_success(lastBought) {
     console.log(lastBought)
 
-    var today = new Date();
+    var t = new Date();
 
     var last_client = {}
     last_client['email'] = loggedEmail;
@@ -284,7 +284,7 @@ function pay_success(lastBought) {
     var last_film_bought = {}
     last_film_bought['title'] = lastBought.title
     last_film_bought['seller'] = lastBought.email_seller
-    last_film_bought['time'] = today
+    last_film_bought['day'] = t.getTime();
     last_film_bought['price'] = lastBought.price
     last_film_bought['buying'] = lastBought.buying;
     last_film_bought['id'] = lastBought.id
