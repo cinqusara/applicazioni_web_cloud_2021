@@ -544,6 +544,16 @@ main {
     overflow: hidden;
 }
 
+.box-movie-plus {
+    margin: 1rem;
+    border-radius: 3px;
+    box-shadow: 0.2px 4px 5px black;
+    background-color: var(--color-secondary-plus);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
 .rating span.green {
     color: green;
     font-weight: bold;
@@ -761,4 +771,20 @@ main {
     padding: 5px 10px;
     margin-top: 3px;
     float: inherit;
+}
+
+#message-successfull {
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--color-secondary-plus);
+}
+
+.pay_with_card_true {
+    background-color: var(--color-primary-dark);
+    color: white;
+}
+
+.pay_with_card:hover {
+    background-color: var(--color-primary-dark);
+    color: white;
 }

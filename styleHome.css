@@ -18,18 +18,19 @@
      --color-primary-dark: #025E73;
      --color-secondary: #D9753B;
      --color-secondary-plus: #732944;
+     --color-red: #8C2626;
      background-color: black;
  }
  
  .titleHomePage {
      font-family: 'Pacifico', cursive;
-     font-size: 40px;
+     font-size: 50px;
      color: white;
  }
  
  #titleHomePage-home {
      font-family: 'Pacifico', cursive;
-     font-size: 40px;
+     font-size: 50px;
      color: white;
      padding: 5px;
  }
@@ -58,4 +59,15 @@
  
  .text-home {
      color: white;
+ }
+ 
+ #quotes {
+     font-size: 25px;
+     color: #cfd1d6;
+     width: bold;
+     font-family: 'Cinzel', serif;
+ }
+ 
+ #text-content {
+     color: #B4B7BF;
  }

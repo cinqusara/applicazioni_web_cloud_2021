@@ -31,6 +31,7 @@ function client_cards() {
                     list_cards.appendChild(div_card);
                     document.getElementById(card.ccnum).addEventListener("click", () => {
                         countClick++;
+                        console.log(countClick)
                         console.log("click")
                         create_cart(countClick, card.ccnum);
                         check_toggle_card(card.ccnum);
@@ -150,6 +151,11 @@ function check_new_card() {
         return false;
     }
 
+    if (expmonth_value > 12) {
+        setFormMessage(form_new_card, "error", 'The month entered is incorrect');
+        return false;
+    }
+
     if (expyear_value < today.getFullYear()) {
         setFormMessage(form_new_card, "error", 'The year is incorrect');
         return false;
@@ -217,6 +223,7 @@ function create_cart(count, numCard) {
     json_users.forEach(user => {
         if (user.email.trim() == loggedEmail) {
             if (count == 1) {
+                console.log("dentro set last movie bought")
                 var lastMovieBought = user.bought_movies.pop();
                 localStorage.setItem("last_movie_bought", JSON.stringify(lastMovieBought))
             }
@@ -230,16 +237,23 @@ function create_cart(count, numCard) {
                 <br><br>
                 <p><b>Card:</b> ${numCard}  </p>
                 <hr width = "300">
-                <p><b>Total:</b>${lastBought.price}  </p>
+                <p><b>Total: </b>${lastBought.price}  </p>
                
             </div>
             <br>
             <button class="btn btn-heart" id="pay_with_card">Pay</button>
+            <br><br>
+            <div id = "payment-successfull"></div>
             `
 
             document.getElementById('pay_with_card').addEventListener("click", () => {
-                console.log("click")
-                pay_success(lastBought, user.email);
+                pay_success(lastBought);
+                document.getElementById('pay_with_card').classList.add('pay_with_card_true')
+                var message = document.getElementById('payment-successfull');
+                message.innerHTML = `
+                    <span id = "message-successfull"><i>Thanks for your purchase!</i><br>If you want to continue shopping, go back to the store section</span>
+                    `
+
             })
         }
     })
@@ -255,23 +269,43 @@ function check_toggle_card(num) {
     toToggle.classList.add('useThisCard')
 }
 
-function pay_success(lastBought, email) {
+function pay_success(lastBought) {
     console.log(lastBought)
-    console.log(email)
-        /* 
-            var last_client = {}
-            last_client['email'] = loggedEmail;
-            last_client['film'] = lastBought.title;
-            last_client['price'] = lastBought.price;
-            last_client['buying'] = lastBought.buying;
 
-            json_users.forEach(user => {
-                if (user.email.trim() == loggedEmail) {
-                    user.purchase_history.push(lastBought)
-                    console.log(user.purchase_history)
-                } else if (user.email.trim() == email) {
-                    user.statistics.push(last_client)
-                    console.log(user.statistics)
-                }
-            }) */
+    var today = new Date();
+
+    var last_client = {}
+    last_client['email'] = loggedEmail;
+    last_client['film'] = lastBought.title;
+    last_client['price'] = lastBought.price;
+    last_client['buying'] = lastBought.buying;
+    last_client['id'] = lastBought.id
+
+    var last_film_bought = {}
+    last_film_bought['title'] = lastBought.title
+    last_film_bought['seller'] = lastBought.email_seller
+    last_film_bought['time'] = today
+    last_film_bought['price'] = lastBought.price
+    last_film_bought['buying'] = lastBought.buying;
+    last_film_bought['id'] = lastBought.id
+
+    console.log(last_client);
+    console.log(last_film_bought);
+
+    json_users.forEach(user => {
+        if (user.email.trim() == loggedEmail) {
+            user.purchase_history.push(last_film_bought)
+            console.log(user.purchase_history)
+
+        }
+
+        if (user.email.trim() == lastBought.email_seller) {
+            console.log(user.statistics)
+            console.log(user.email)
+            user.statistics.push(last_client)
+            console.log(user.statistics)
+
+        }
+    })
+    localStorage.setItem("json_users", JSON.stringify(json_users))
 }
