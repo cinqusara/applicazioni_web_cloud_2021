@@ -12,6 +12,7 @@ const formAccount = document.getElementById("seller_changes");
 const shop = document.getElementById("shop-name");
 const sellerChanges = document.getElementById("seller_changes");
 const boxFilms = document.getElementById("box_films");
+var boxStatistics = document.getElementById('box-statistics');
 
 get_info();
 
@@ -50,8 +51,32 @@ function get_info() {
                 boxFilms.appendChild(filmShop)
             });
 
+            boxStatistics.innerHTML = ` `
+            jsonObj.forEach(user => {
+                if (user.email.trim() == loggedUserEmailObj) {
+                    allStat = user.statistics;
+                    console.log(user.statistics)
+                    const reversStat = reverseArray(allStat);
+                    console.log(reversStat)
+                    for (var i = 0; i < 4 && i < reversStat.length; i++) {
+                        const boxStat = document.createElement('div');
+                        boxStat.innerHTML = ` 
+                        <b>Client: </b> ${reversStat[i].email}<br>
+                        <b>Film: </b> ${reversStat[i].film}<br>
+                        <b>Price: </b> ${reversStat[i].price}<br>
+                        <b>Purchase mode: </b> ${reversStat[i].buying}
+                        <br><br>
+                    `
+                        boxStatistics.appendChild(boxStat)
+                    }
+                }
+            })
         }
     });
+
+    document.getElementById("allStat_btn").addEventListener("click", () => {
+        window.location.href = "all_statistics.html"
+    })
 }
 
 
@@ -329,4 +354,26 @@ function get_film() {
     })
     return films
 
+}
+
+function get_statistics() {
+    var stat = []
+    jsonObj.forEach(user => {
+        if (user.email.trim() == loggedUserEmailObj) {
+            allStat = user.statistics;
+            console.log(user.statistics)
+            if (user.statistics != undefined) {
+                return allStat
+            }
+        }
+    })
+    return
+}
+
+function reverseArray(arr) {
+    let newArr = [];
+    for (let i = arr.length - 1; i >= 0; i--) {
+        newArr.push(arr[i]);
+    }
+    return newArr;
 }
